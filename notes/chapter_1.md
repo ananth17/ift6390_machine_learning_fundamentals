@@ -126,21 +126,41 @@ Pick one box, pick random from the box.
 
 **Probability of an event** <- fraction of time the event occurs on total of all events.
 
+**notation**
+- P(X=x|Y=y) = conditional probability of X=x given Y=y
+- P(X=x, Y=y) = probability of X=x, Y=y
+
 
 ![](images/fig_1_10.png)
 
-**sum rule** <- p(X) = sum{Y}(p(X, Y)), *marginal probability*. obtained by summing out
-the other variables
 
-**product rule** <- p(X, Y) = p(Y|X) * p(X), probability of Y given X. We observe that
+**symmetry property** <- P(X|Y) = P(Y|X) (at least in 2 var systems I suppose)
+
+
+**sum rule** <- p(X=x) = sum{Y}(p(X=x, Y=yn)), *marginal probability*. obtained by summing out
+the other variables.
+
+
+**product rule** <- p(X=x, Y=y) = p(Y=y|X=x) * p(X=x), probability of Y given X. We observe that
 P(X, Y) = P(Y, X), by the symmetry property.
 
-P(Y|X) = (P(X|Y) * P(Y)) / P(X)
 
 
-**Baye's theorem** <
+**Baye's theorem** <- P(Y=y | X=x) = (P(X=x | Y=y) * P(Y=y)) /(P(X=x)
 
+~~~
+    equivalence relationships with Baye's rule
 
+    Baye's rule: P(Y=y | X=x) = P(X=x | Y=y) * P(Y=y) / P(X=x)
+
+    y | X=XP(X=x |Y=y) * P(Y=y) = P(X=x, Y=y)
+
+    P(X=x, Y=y) / P(X=x) = P(Y=y | X=x)
+    eq.
+    P(X=x, Y=y) = P(Y=y | X=x) * P(X=x)
+
+    also
+~~~
 
 
 
