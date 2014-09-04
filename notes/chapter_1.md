@@ -97,7 +97,7 @@ learned.
 - usually, coefficients in overfitted weight vectors go to extremes to fit very well the data
 
 
-!()[images/table_1_1.png]
+![](images/table_1_1.png)
 
 
 - increasing the ratio (input data) / polynomial degree reduces overfitting (reduces relative degrees of liberty I suppose)
@@ -127,7 +127,7 @@ Pick one box, pick random from the box.
 **Probability of an event** <- fraction of time the event occurs on total of all events.
 
 
-!()[images/fig_1_10.png]
+![](images/fig_1_10.png)
 
 **sum rule** <- p(X) = sum{Y}(p(X, Y)), *marginal probability*. obtained by summing out
 the other variables
