@@ -164,4 +164,21 @@ P(X, Y) = P(Y, X), by the symmetry property.
 
 
 
+## bayesian probabilities
+
+posterior ∝ likelihood × prior
+
+
+
+## gaussian distribution
+
+
+
+
+
+
+
+
+
+
 

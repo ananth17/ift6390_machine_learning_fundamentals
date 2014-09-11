@@ -110,11 +110,15 @@ p(x = 1|μ) = μ; p(x = 0|μ) = 1 − μ.
 ## binomial distribution
 
 
+both variance and averge calculation can give severly over-fitted results
+
 ~~~python
 
     def factorial(n):
-      assert n > 0 and isinstance(n, int), "wrong input"
+      assert n >= 0 and isinstance(n, int), "wrong input"
       ret = 1
+      if n == 0:
+        return ret
       for i in range(1, n+1):
         ret *= i
       return ret
@@ -125,11 +129,17 @@ p(x = 1|μ) = μ; p(x = 0|μ) = 1 − μ.
     def binomial_likelihood(D, mu):
       """estimate the probability of getting m heads out of N"""
       m = sum(D)
-      return combination(N, m) * (mu ** m) * ((1 - mu) ** (N -m))
-      
-      
+      N = len(D)
+      return combination(N, m) * (mu ** m) * ((1 - mu) ** (N - m))
 
-    
+~~~
+
+
+## beta distribution
+
+
+
+
 ## gaussian distribution
 
 

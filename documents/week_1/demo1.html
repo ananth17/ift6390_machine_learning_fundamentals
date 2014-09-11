@@ -1,0 +1,91 @@
+
+<!-- saved from url=(0076)http://www.iro.umontreal.ca/~memisevr/teaching/ift3395_2014/demos/demo1.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<style type="text/css"></style></head>
+<body>
+
+<h1>Démo 1 - 4 septembre</h1>
+<p>Les démonstrations ont pour but de vous faire pratiquer les notions vues en cours, et sont <strong>essentielles</strong> pour votre apprentissage. Elles pourront comporter des aspects TP (papier crayon) et Labo, où vous implémenterez et expérimenterez avec des algorithmes d'apprentissage. Le langage utilisé sera Python.</p>
+<h2>Comptes</h2>
+<p>Vous devriez maintenant tous avoir accès aux machines des salles de labo. <span style="font-style: italic;">Si ce n'est pas le cas, contactez-nous tout de suite!</span></p>
+<h2 style="font-weight: bold;">Pourquoi Python?</h2>
+<p>Python est un un choix fait avec un biais d'informaticien. C'est un cours IFT après tout! Cela dit Python possède de nombreux avantages.</p>
+<p>On veut un langage de programmation de <span style="font-weight: bold;">haut niveau </span>supportant de manière directe, simple et intuitive la manipulation de vecteurs et matrices (donc ni Java ni C). Parmi les langages de ce genre on peut citer Matlab, R, et Python (avec le package numpy). Python est un langage généraliste plus propre que Matlab, et plus simple à apprendre et à maîtriser que R. On veut que vous puissiez rapidement implanter un modèle chez vous, pour vos propres problèmes. Python est open source et gratuit et de nombreuses librairies d'apprentissage machine existent. De plus, Python est très populaire et bien supporté.</p>
+<p>Nous utiliserons la version 2.7, car c'est la version installée sur les ordinateurs du diro et parce que bien que de plus en plus de librairies supportent python 3.0, 2.7 est la version la plus récente supportée par la plupart des librairies, dont entre autre Theano et Pylearn2.</p>
+<p>Petite note sur SAGE. SAGE est essentiellement construit sur ipython, numpy et matplotlib (et beaucoup plus) mais apporte quelque changements incompatibles à la syntaxe python. Nous préférons utiliser directement python et ses modules (plus largement connus).</p>
+<h2>Comment débuter avec Python</h2>
+<p>Nous vous suggérons de procéder dans l'ordre suivant:</p>
+<p><strong>Pour travailler sur les ordinateurs du laboratoire</strong>, vous devez ajouter les lignes suivantes à votre fichier <span style="font-family: courier new,courier,monospace;">~/.bashrc</span></p>
+<p>export PATH=/u/dift3395/.local/bin:$PATH</p>
+<p>export PYTHONPATH=/u/dift3395/.local/lib/python2.7/site-packages</p>
+
+<p><strong>Pour travailler sur votre ordinateur personnel</strong> il vous faudra installer <span style="font-family: courier new,courier,monospace;">python</span>, <span style="font-family: courier new,courier,monospace;">numpy</span>, <span style="font-family: courier new,courier,monospace;">matplotlib</span> et <span style="font-family: courier new,courier,monospace;">ipython notebook</span>.</p>
+<ul>
+	<li style="list-style-type: none;">
+	<ul>
+		<li>Si vous êtes sous linux vous devriez pouvoir les installer facilement avec le gestionnaires de paquet de votre distribution. Si vous avez ubuntu, vous devez mettre à jour la version de ipython avec la commande <span style="font-family: courier new,courier,monospace;">pip install --upgrade ipython[notebook]</span></li>
+		<li>Sur les autres systèmes, <strong>installer chaque composante individuellement est plus complexe</strong>, alors nous suggérons l'une des&nbsp;<strong>distributions</strong>&nbsp;Python suivantes: <a href="https://store.continuum.io/cshop/anaconda/">Anaconda</a> (pour Windows, Mac OS X,&nbsp;&nbsp;ou Linux) ou bien&nbsp;<a href="https://www.enthought.com/store/">Enthought Canopy Express</a>&nbsp;(pour Windows, Mac OS X, ou linux) ou bien <a href="http://www.pythonxy.com/">PythonXY</a> (pour Windows ou Linux).</li>
+		<li>Une fois ces éléments installés, trouvez comment démarrer une console/terminal/command-prompt, déplacez vous dans le dossier où vous souhaitez sauvegarder vos fichier et lancez-y <strong>ipython notebook</strong> pour pouvoir expérimenter en mode interactif. </li>
+	</ul>
+	</li>
+</ul>
+<p>Durant les démos, nous travaillerons avec <span style="font-family: courier new,courier,monospace;">ipython notebook</span>. L'interface est parfaite pour alterner explications, formules mathématiques et courts programmes python. Il est aussi possible de faire les devoirs avec un <span style="font-family: courier new,courier,monospace;">notebook</span>, mais vous n'avez qu'à rendre un rapport pdf, l'IDE que vous utilisez est donc à votre choix. Finalement, il sera plus pratique d'utiliser un éditeur ou un IDE pour implémenter le projet du cours. Il y a l'embarras du choix. Voir ci-dessous:</p>
+<p>Parmi les<strong> éditeurs simples</strong> voici quelques suggestions: (vous pouvez aussi examiner une <a href="http://wiki.python.org/moin/PythonEditors">liste plus complète</a>)</p>
+<ul>
+		<li style="list-style-type: none;">
+		<ul>
+			<li>Pour les vétérans unix/linux: <strong><em>emacs</em></strong> ou <em>vim</em></li>
+			<li>Sur linux il y a aussi <strong><em>kwrite</em></strong> et <em>gedit</em> qui supportent bien le Python.</li>
+			<li>Sur Windows/Mac/Linux vous pouvez télécharger et installer <a href="http://www.activestate.com/komodo-edit"><em><strong>Komodo Edit</strong></em></a></li>
+			<li>Sur windows il y a aussi <em>Notepad++</em> (surtout si vous le connaissez déjà).</li>
+		</ul>
+		</li>
+</ul>
+<p><span style="line-height: 1.4;">Parmi les <strong>IDE</strong> plus complètes allez voici quelques suggestions:</span></p>
+<ul>
+	<ul>
+		<li>Spyder (<span itemprop="description"><a id="project_summary_link" href="https://code.google.com/p/spyderlib/">Spyder is the Scientific PYthon Development EnviRonment</a>) pour Windows/Mac/Linux&nbsp;(installé automatiquement avec plusieurs des distributions mentionnées ci-haut)</span></li>
+		<li>Pour les habitués de l'IDE <em>Eclipse</em> (disponible sur toutes les plateformes) vous pouvez y installer le plugin <a href="http://pydev.org/">PyDev</a></li>
+		<li>L'IDE NetBeans (plus simple à maîtriser qu'Eclipse) a également un plugin pour Python qu'il vous faudra installer.</li>
+		<li>PyCharm (pas gratuit, mais parait-il excellent)</li>
+	</ul>
+</ul>
+<h2>Outils pour faire de la science avec Python</h2>
+<ul>
+	<li><a href="http://numpy.scipy.org/">NumPy</a>: librairie pour la manipulation facile et efficace des matrices.</li>
+	<li><a href="http://numpy.scipy.org/numpybook.pdf">Le livre sur NumPy</a>: lecture <span style="font-weight: bold;">recommandée</span>. <a href="http://www.scipy.org/Tentative_NumPy_Tutorial" title="Tutoriel en anglais.">Tutoriel en anglais</a>.</li>
+	<li><a href="http://www.scipy.org/">SciPy</a>: collection des librairies (basée entre autres sur NumPy) qui contient beaucoup des trucs utiles:
+	<ul>
+		<li><a href="http://matplotlib.sourceforge.net/">Matplotlib</a>: affichage des graphiques à la Matlab. Très simple a apprendre est très utile comme module.</li>
+	</ul>
+	<ul>
+		<li><a href="http://ipython.scipy.org/moin/">iPython</a>: le Python interactif++. <span style="font-weight: bold;">Fortement conseillé</span> a utiliser! A lancer avec <span style="font-family: courier new,courier,monospace;">ipython --pylab <span style="font-family: serif;"><span style="font-family: sans-serif;"></span></span></span>pour loader automatiquement numpy, matlplotlib etc.</li>
+	</ul>
+	</li>
+</ul>
+<h2>Liste de liens utiles:</h2>
+<ul>
+	<li>Le <a href="http://www.python.org/doc/2.5.1/tut/tut.html">tutoriel pour Python 2.5.1</a>, la version installée sur les ordinateur de DIRO. Prenez note que c'est un tutoriel pour programmeurs.</li>
+	<li><a href="http://home.uchicago.edu/~gan/file/python.pdf">Python 2.5 Reference Card</a>: beaucoup d'information utile comprimée en 2 pages.</li>
+	<li><a href="http://www.scipy.org/Tentative_NumPy_Tutorial" title="Tutoriel en anglais.">Tutoriel NumPy en anglais</a>.</li>
+	<li><a href="http://wiki.python.org/moin/">Python Wiki</a>: le wiki officiel.</li>
+	<li><a href="http://en.wikipedia.org/wiki/Python_%28programming_language%29">Wikipedia</a>: présentation du langage et beaucoup de liens vers d'autres ressources.</li>
+	<li><a href="http://www.dmoz.org/Computers/Programming/Languages/Python/FAQs,_Help,_and_Tutorials/">Open Directory FAQs, Help, and Tutorials</a>: collection de page web sur le langage</li>
+</ul>
+
+<h2>Exercices à faire aujourd'hui</h2>
+<p>Les démonstrations futures nécessiteront de coder en Python. Afin de vous familiariser avec ce language nous allons parcourir dans cette démonstration le tutoriel de Python.</p>
+<p>Le tutoriel est accessible <a title="ici" href="http://docs.python.org/tutorial/">ici</a> pour les anglophones. Si vous préfèrez, une <a href="http://www.afpy.org/doc/python/2.7/tutorial/">traduction française</a> est aussi disponible.</p>
+<ul>
+	<li>Ouvrez une console (ALT+F2 puis tapez <em>konsole</em>).</li>
+	<li>Lancer <em>ipython notebook</em>.</li>
+	<li>Téléchargez le <a href="http://www.iro.umontreal.ca/~memisevr/teaching/ift3395_2014/demos/1_python.ipynb" download="1_python.ipynb">notebook</a> et déplacez le dans le dossier d'où vous avez lancé <em>ipython notebook</em></li>
+	<li>Lisez et reproduisez les exemples du tutoriel des parties suivantes: 1,3,4,5,6,7,8,10; en sautant les sous-parties: 3.1.3, 4.7.6, 5.8, 8.4, 8.5, 8.6, 10.5, 10.7, 10.10, 10.11, 10.12.</li>
+</ul>
+<p>Si vous êtes à l'aise n'hésitez pas à tout lire.</p>
+<p>Bonne démonstration.</p>
+
+<p></p>
+
+</body></html>
