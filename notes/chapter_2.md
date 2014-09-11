@@ -57,12 +57,96 @@ p(x = 1|μ) = μ; p(x = 0|μ) = 1 − μ.
 
 
 
+~~~python
+
+    from random import uniform
+    from math import log
 
 
+    class bernouilli(object):
+      """ P(1) = μ, P(0) = 1 - μ"""
+
+      def __init__(self, mu):
+        assert isinstance(mu, float) and 0 <= mu <= 1
+        self.mu = mu  # probability of 1
+
+      def rand(self):
+        """returns a random observation of bernouilli distribution"""
+        if uniform(0, 1) < self.mu:
+          return 1
+        else:
+          return 0
 
 
+    def bernouilli_likelihood(D, mu):
+      """likelihood probability of the observations according to mu"""
+      probability = 1
+      for realization in D:
+        if realization == 1:
+          probability *= mu
+        else:
+          probability *= (1 - mu)
+      return probability
 
+
+    def bernouilli_log_likelihood(D, mu):
+      """log likelihood probability"""
+      return log(bernouilli_likelihood(D, mu))
+
+
+    def average_sample_bernouilli(D):
+      return sum(D) / len(D)
+
+
+    distribution = bernouilli(0.5)
+    print("[")
+    for _ in range(1, 10):
+      print(distribution.rand())
+    print("]")
+
+~~~
+
+
+## binomial distribution
+
+
+~~~python
+
+    def factorial(n):
+      assert n > 0 and isinstance(n, int), "wrong input"
+      ret = 1
+      for i in range(1, n+1):
+        ret *= i
+      return ret
+
+    def combination(N, m):
+      return factorial(N) // ((factorial(N - m)) * factorial(m))
+
+    def binomial_likelihood(D, mu):
+      """estimate the probability of getting m heads out of N"""
+      m = sum(D)
+      return combination(N, m) * (mu ** m) * ((1 - mu) ** (N -m))
+      
+      
+
+    
 ## gaussian distribution
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
