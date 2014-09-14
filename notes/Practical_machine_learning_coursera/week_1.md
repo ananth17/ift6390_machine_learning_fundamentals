@@ -245,6 +245,148 @@ RMSE = sqrt(MSE)
 ## Cross-validation
 
 
+- used to evaluate features
+
+
+### key ideas
+
+
+1. accuracy on the training set is optimistic (resubstitution accuracy)
+2. better estimate comes from an independent set (test set accuracy)
+3. can't use the test set when building model, otherwise it is part of training set
+4. we estimate the test set accuracy with the training set
+
+
+### cross-validation
+
+
+approach:
+
+1. use the training set
+2. split into training/test set
+3. build a model on the training set
+4. evaluate on the test set
+5. repeat and average the estimated errors
+
+
+
+used for:
+
+1. picking variables to include in a model
+2. picking the type of prediction function to use
+3. picking the parameters in the prediction function
+4. comparing different predictors
+
+
+### random subsampling
+
+randomly choose appartenance to either training and sample (bernoulli distribution)
+
+
+### k-fold
+
+choose k equal sized, non intersecting sets and apply the model k times
+
+
+### leave one out
+
+predict the value of the one sample left out and try for every sample in the data set
+
+
+### considerations
+
+- for time series, data must be used in chunks (time dependence)
+- k fold
+    - larger the k, less bias but bigger variance
+    - smaller the k, more bias, less variance
+- random sampling must be done without replacement
+- random sampling with replacement is called **bootstrap**
+    - underestimates the error (you get one right, you get righ on all repetitions)
+    - can be corrected but is quite complicated (0.632 bootstrap)
+- if cross-validate to pick predictors estimate you must estimate error on independent data
+
+
+
+## What data should be used?
+
+
+### examples
+
+
+- Nate Silver, predicting votes based on polling information
+    - recognized that some polls were biased in some ways
+    - weighted the polling based on their bias towards one end
+- when trying to predict some type of data, use the closest type of data to predict it
+- Moneyball
+    - future performance based on past performance of players
+- Netflix
+    - same as Moneyball basically
+- Google flu
+    - the properties of the system must be invariant inside the system
+    - 
+
+    
+- 
+
+
+### data properties matter
+
+- knowing how the data connect to the goal is crucial to the outcome
+- unrelated data is the most common mistake
+    - correlation doesn't imply correlation (none whatsoever)
+    - variables are often correlated between themselves
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
