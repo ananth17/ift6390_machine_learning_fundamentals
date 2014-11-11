@@ -8,7 +8,7 @@ import theano.tensor as T
 class LogisticRegression(object):
     """Output layer with softmax activation"""
 
-    def __init__(self, input, n_in, n_out):
+    def __init__(self, rng, input, n_in, n_out):
         """
         :param input: symbolic variable that describes the input
          of the architecture (one minibatch)
@@ -22,14 +22,16 @@ class LogisticRegression(object):
 
         # zero initialized W
         # dim(W) = (n_in, n_out)
-        self.W = theano.shared(
-            value=numpy.zeros(
-                (n_in, n_out),
-                dtype=theano.config.floatX
+
+        W_values = numpy.asarray(
+            rng.uniform(
+                low=-numpy.sqrt(1. / n_in),
+                high=numpy.sqrt(1. / n_in),
+                size=(n_in, n_out)
             ),
-            name='W',
-            borrow=True
+            dtype=theano.config.floatX
         )
+        self.W = theano.shared(value=W_values, name='W', borrow=True)
 
         # zero initialized b
         # dim(b) = (n_out)

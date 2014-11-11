@@ -31,22 +31,24 @@ class HiddenLayer(object):
         # `W` is initialized with uniformely sampled values
         # from sqrt(-6./(n_in+n_hidden)) and sqrt(6./(n_in+n_hidden))
         # for tanh activation function
+        # Y Bengio, X. Glorot,
+        # Understanding the difficulty of training deep feedforward
+        # neural networks, AISTATS 2010
  
         # initialize W
         if W is None:
             W_values = numpy.asarray(
                 rng.uniform(
-                    low=-numpy.sqrt(6. / (n_in + n_out)),
-                    high=numpy.sqrt(6. / (n_in + n_out)),
+                    low=-numpy.sqrt(1. / n_in),
+                    high=numpy.sqrt(1. / n_in),
                     size=(n_in, n_out)
                 ),
                 dtype=theano.config.floatX
             )
-            if activation == theano.tensor.nnet.sigmoid:
-                W_values *= 4
 
             W = theano.shared(value=W_values, name='W', borrow=True)
 
+        # initialize b
         if b is None:
             b_values = numpy.zeros((n_out,), dtype=theano.config.floatX)
             b = theano.shared(value=b_values, name='b', borrow=True)
@@ -110,6 +112,7 @@ class MLP(object):
         # The logistic regression layer gets as input the hidden units
         # of the hidden layer
         self.logRegressionLayer = LogisticRegression(
+            rng=rng,
             input=self.hiddenLayer.output,
             n_in=n_hidden,
             n_out=n_out
@@ -291,7 +294,7 @@ def test_mlp(learning_rate=0.01, L1_reg=0.00, L2_reg=0.0001, n_epochs=1000,
 
         epoch = epoch + 1
         if epoch%5 == 0:
-          print "epoch = {0}\t train = {1}\t test = {2}".format(epoch, train_scores[-1], test_scores[-1])
+          print "{0}; {1}; {2}".format(epoch, train_scores[-1], test_scores[-1])
 
         for minibatch_index in xrange(n_train_batches):
             minibatch_avg_cost = train_model(minibatch_index)
@@ -305,7 +308,7 @@ def test_mlp(learning_rate=0.01, L1_reg=0.00, L2_reg=0.0001, n_epochs=1000,
     print 'Scores per iterations'
 
     for i in range(len(train_scores)):
-      print "epoch {0} train \t {1} \t test {2}".format(i, train_scores[i], test_scores[i])
+      print "{0}; {1}; {2}".format(i, train_scores[i], test_scores[i])
 
 
 if __name__ == '__main__':
