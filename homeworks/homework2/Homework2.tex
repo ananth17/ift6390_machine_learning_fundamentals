@@ -1,0 +1,1196 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass{article}
+
+    
+    
+    \usepackage{graphicx} % Used to insert images
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{color} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    
+
+    
+    
+    \definecolor{orange}{cmyk}{0,0.4,0.8,0.2}
+    \definecolor{darkorange}{rgb}{.71,0.21,0.01}
+    \definecolor{darkgreen}{rgb}{.12,.54,.11}
+    \definecolor{myteal}{rgb}{.26, .44, .56}
+    \definecolor{gray}{gray}{0.45}
+    \definecolor{lightgray}{gray}{.95}
+    \definecolor{mediumgray}{gray}{.8}
+    \definecolor{inputbackground}{rgb}{.95, .95, .85}
+    \definecolor{outputbackground}{rgb}{.95, .95, .95}
+    \definecolor{traceback}{rgb}{1, .95, .95}
+    % ansi colors
+    \definecolor{red}{rgb}{.6,0,0}
+    \definecolor{green}{rgb}{0,.65,0}
+    \definecolor{brown}{rgb}{0.6,0.6,0}
+    \definecolor{blue}{rgb}{0,.145,.698}
+    \definecolor{purple}{rgb}{.698,.145,.698}
+    \definecolor{cyan}{rgb}{0,.698,.698}
+    \definecolor{lightgray}{gray}{0.5}
+    
+    % bright ansi colors
+    \definecolor{darkgray}{gray}{0.25}
+    \definecolor{lightred}{rgb}{1.0,0.39,0.28}
+    \definecolor{lightgreen}{rgb}{0.48,0.99,0.0}
+    \definecolor{lightblue}{rgb}{0.53,0.81,0.92}
+    \definecolor{lightpurple}{rgb}{0.87,0.63,0.87}
+    \definecolor{lightcyan}{rgb}{0.5,1.0,0.83}
+    
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Homework2}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=blue,
+      linkcolor=darkorange,
+      citecolor=darkgreen,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+
+    \section{Homework 2: multilayer perceptron (single hidden layer)}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{o}{\PYZpc{}}\PY{k}{load\PYZus{}ext} \PY{n}{autoreload}
+         \PY{o}{\PYZpc{}}\PY{k}{autoreload} \PY{l+m+mi}{2}
+         \PY{o}{\PYZpc{}}\PY{k}{pylab} \PY{n}{inline}
+         \PY{o}{\PYZpc{}}\PY{k}{aimport} \PY{n}{numpy}
+         \PY{n}{np}\PY{o}{=}\PY{n}{numpy}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Populating the interactive namespace from numpy and matplotlib
+    \end{Verbatim}
+
+    \subsection{parameters}\label{parameters}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  3 layers (input -\textgreater{} hidden -\textgreater{} output)
+
+  \begin{itemize}
+  \itemsep1pt\parskip0pt\parsep0pt
+  \item
+    input: 784 neurons (1 for each pixel)
+  \item
+    hidden units: not fixed
+  \item
+    output: 10 neurons (1 for each digit)
+  \end{itemize}
+\item
+  tanh(sum(input)) for each layer
+\end{itemize}
+
+    \subsection{Q1 a)}\label{q1-a}
+
+    \textbf{What is the dimension of $b^{(1)}$ ?}
+
+$b^{(1)}$ is $d_h \times 1$.
+
+    \textbf{Write down the formula to calculate the vector of activations}
+\textbf{(i.e.~before the non-linearity) of the neurons in the hidden
+layer,} \textbf{$h^a$ , given an input, x, at first in matrix
+expression.}
+
+$h^a_{d_h \times 1} = b^{(1)}_{d_h \times 1} + W^{(1)}_{d_h \times d} x_{d \times 1} $
+
+    \textbf{Element-by-element computation of the entries of $h^a$.}
+
+$h^a_i = b^{(1)}_i + \sum\limits_{j=1}^d w^{(1)}_{i, j}x_j$
+
+    \textbf{Write down the vector of outputs of the hidden layer neurons,
+$h^s$, in terms of the activations, $h^a$.}
+
+$h^s_{d_h \times 1} = tanh(b^{(1)}_{d_h \times 1} + W^{(1)}_{d_h \times d} x_{d \times 1}) $
+
+    \subsection{Q1 b)}\label{q1-b}
+
+    \textbf{Let $W^{(2)}$ be the weight matrix from the hidden to output
+layer and $b^{(2)}$ be the} \textbf{vector of biases for the output
+layer. What are the dimensions of $W^{(2)}$ et $b^{(2)}$ ?}
+
+$b^{(2)}$ is $m \times 1$
+
+$W^{(2)}$ is $m \times d_h$
+
+    \textbf{Write down the formula describing the vector of activations of
+neurons in the output} \textbf{layer $o^a$ given $h^s$ in matrix form}
+
+$o^a_{m \times 1} = b^{(2)}_{m \times 1} + W^{(2)}_{m \times d_h} h^s_{d_h \times 1}$
+
+    \textbf{Then in detail element-wise form}
+
+$o^a_i = b^{(2)}_i + \sum\limits_{j=1}^{d_h} w^{(2)}_{i, j} h^s_j$
+
+    \subsection{Q1 c)}\label{q1-c}
+
+    \textbf{What is contained in the set of all network parameters,
+$\theta$}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  activation function (tanh, sigmoid, linear even)
+\item
+  number of hidden layer nodes
+\item
+  $W^{(1)}, W^{(2)}, b^{(1)}, b^{(2)}$
+\end{itemize}
+
+    \textbf{What is the number $n_{\theta}$ of parameters in $\theta$ ?}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  $W^{(1)}$ is $d_h \times d$
+\item
+  $W^{(2)}$ is $m \times d_h$
+\item
+  $b^{(1)}$ is $d_h \times 1$
+\item
+  $b^{(2)}$ is $m \times 1$
+\end{itemize}
+
+$n_{\theta}$ = $d_h * (d+1 + m) + m$
+
+    \subsection{Q1 d)}\label{q1-d}
+
+    \textbf{Show that the gradients wrt. parameters $W^{(2)}$ and $b^{(2)}$
+are given by:}
+
+$\dfrac {\delta  L} {\delta W^{(2)}} = \dfrac {\delta L} {\delta o^a} (h^s)^T $
+
+and
+
+$\dfrac {\delta  L} {\delta b^{(2)}} = \dfrac {\delta L} {\delta o^a} $
+
+    ** (i) the dimensions**
+
+$\dfrac {\delta  L} {\delta W^{(2)}}$ is $m \times d_h$
+
+$\dfrac {\delta L} {\delta o^a}$ is $m \times 1$
+
+$(h^s)^T$ is $1 \times d_h$
+
+$\dfrac {\delta  L} {\delta W^{(2)}}$ is $m \times 1$
+
+\textbf{(ii) the weights}
+
+$o^s = softmax(o^a) = softmax(W^{(2)}h^s + b^{(2)})$
+
+$f(g(x))' = f'(g(x)) * g'(x)$
+
+$\dfrac {\delta  L} {\delta W^{(2)}} = \dfrac {\delta L} {\delta o^a} * \dfrac {\delta (W^{(2)}h^s + b^{(2)})} {\delta W^{(2)}} = \dfrac {\delta L} {\delta o^a} (h^s)^T $
+
+\textbf{(iii) the biases}
+
+same as for the weights
+
+$\dfrac {\delta  L} {\delta b^{(2)}} = \dfrac {\delta L} {\delta o^a} * \dfrac {\delta (W^{(2)}h^s + b^{(2)})} {\delta b^{(2)}} = \dfrac {\delta L} {\delta o^a} $
+
+    \subsection{Q1 e)}\label{q1-e}
+
+    Using the chain rule
+
+\[ \dfrac {\delta L} {\delta h^s_j} = \sum \limits_{k=1}^M \dfrac {\delta L} {\delta o^a_k} \dfrac {\delta o^a_k} {\delta h^s_j}\]
+
+show that the partial derivatives of the cost L with respect to the
+outputs of the neurons in the hidden layer are given by:
+
+$\dfrac {\delta L} {\delta h^s_j} = (W^{(2)})^T \dfrac {\delta L} {\delta o^a}$
+
+We start from:
+
+\[ \dfrac {\delta L} {\delta h^s_j} = \sum \limits_{k=1}^M \dfrac {\delta L} {\delta o^a_k} \dfrac {\delta o^a_k} {\delta h^s_j}\]
+
+\[ o^a_k = W^{(2)}_k h^s_j + b^{(2)}_k\]
+
+\[ \dfrac {\delta o^a_k} {\delta h^s_j} = W^{(2)}_k \]
+
+We substitute the derivative term for its value
+
+\[ \dfrac {\delta L} {\delta h^s_j} = \sum \limits_{k=1}^M \dfrac {\delta L} {\delta o^a_k}  W^{(2)}_k\]
+
+Which is equivalent in the matrix form to
+
+\[(W^{(2)})^T \dfrac {\delta L} {\delta o^a}\]
+
+    \subsection{Q1 f)}\label{q1-f}
+
+    \textbf{First show that the derivative of $tahn(z) = 1 - tanh^2(z)$}
+
+You can see the derivation here:
+http://math.stackexchange.com/questions/741050/hyperbolic-functions-derivative-of-tanh-x
+.
+
+It's not really worth the copying.
+
+    
+
+    
+
+    
+
+    
+
+    Negative log-likelihood function
+
+L(\textbf{x}, \emph{t}) = \$ - log~o\^{}t(x) \$
+
+Training the neural network amounts to finding the parameters which
+minimize the value of the loss function for the training set.
+
+\textbf{Mention precisely what constitutes θ the set of all network
+parameters.}
+
+If we go into details for a MLP with one hidden layer:
+
+    
+
+    \subsection{Q1 e)}\label{q1-e}
+
+    
+
+    \section{Question 2}\label{question-2}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k}{def} \PY{n+nf}{load\PYZus{}data}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{    Loads the data}
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+        
+            \PY{n}{test\PYZus{}x} \PY{o}{=} \PY{n}{numpy}\PY{o}{.}\PY{n}{loadtxt}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{test\PYZus{}images.txt}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{n}{delimiter}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{,}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{test\PYZus{}y} \PY{o}{=} \PY{n}{numpy}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{numpy}\PY{o}{.}\PY{n}{loadtxt}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{test\PYZus{}labels.txt}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{n}{delimiter}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{,}\PY{l+s}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{train\PYZus{}x} \PY{o}{=} \PY{n}{numpy}\PY{o}{.}\PY{n}{loadtxt}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{train\PYZus{}images.txt}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{n}{delimiter}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{,}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{train\PYZus{}y} \PY{o}{=} \PY{n}{numpy}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{numpy}\PY{o}{.}\PY{n}{loadtxt}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{train\PYZus{}labels.txt}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{n}{delimiter}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{,}\PY{l+s}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        
+        
+            \PY{k}{def} \PY{n+nf}{shared\PYZus{}dataset}\PY{p}{(}\PY{n}{data\PYZus{}x}\PY{p}{,} \PY{n}{data\PYZus{}y}\PY{p}{,} \PY{n}{borrow}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{        Function that loads the dataset into shared variables}
+        
+        \PY{l+s+sd}{        The reason we store our dataset in shared variables is to allow}
+        \PY{l+s+sd}{        Theano to copy it into the GPU memory (when code is run on GPU).}
+        \PY{l+s+sd}{        Since copying data into the GPU is slow, copying a minibatch everytime}
+        \PY{l+s+sd}{        is needed (the default behaviour if the data is not in a shared}
+        \PY{l+s+sd}{        variable) would lead to a large decrease in performance.}
+        \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                \PY{n}{shared\PYZus{}x} \PY{o}{=} \PY{n}{theano}\PY{o}{.}\PY{n}{shared}\PY{p}{(}\PY{n}{numpy}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{data\PYZus{}x}\PY{p}{,}
+                                                       \PY{n}{dtype}\PY{o}{=}\PY{n}{theano}\PY{o}{.}\PY{n}{config}\PY{o}{.}\PY{n}{floatX}\PY{p}{)}\PY{p}{,}
+                                         \PY{n}{borrow}\PY{o}{=}\PY{n}{borrow}\PY{p}{)}
+                \PY{n}{shared\PYZus{}y} \PY{o}{=} \PY{n}{theano}\PY{o}{.}\PY{n}{shared}\PY{p}{(}\PY{n}{numpy}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{data\PYZus{}y}\PY{p}{,}
+                                                       \PY{n}{dtype}\PY{o}{=}\PY{n}{theano}\PY{o}{.}\PY{n}{config}\PY{o}{.}\PY{n}{floatX}\PY{p}{)}\PY{p}{,}
+                                         \PY{n}{borrow}\PY{o}{=}\PY{n}{borrow}\PY{p}{)}
+                \PY{c}{\PYZsh{} When storing data on the GPU it has to be stored as floats}
+                \PY{c}{\PYZsh{} therefore we will store the labels as ``floatX`` as well}
+                \PY{c}{\PYZsh{} (``shared\PYZus{}y`` does exactly that). But during our computations}
+                \PY{c}{\PYZsh{} we need them as ints (we use labels as index, and if they are}
+                \PY{c}{\PYZsh{} floats it doesn\PYZsq{}t make sense) therefore instead of returning}
+                \PY{c}{\PYZsh{} ``shared\PYZus{}y`` we will have to cast it to int. This little hack}
+                \PY{c}{\PYZsh{} lets ous get around this issue}
+                \PY{k}{return} \PY{n}{shared\PYZus{}x}\PY{p}{,} \PY{n}{T}\PY{o}{.}\PY{n}{cast}\PY{p}{(}\PY{n}{shared\PYZus{}y}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{int32}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+        
+            \PY{n}{test\PYZus{}x}\PY{p}{,} \PY{n}{test\PYZus{}y} \PY{o}{=} \PY{n}{shared\PYZus{}dataset}\PY{p}{(}\PY{n}{test\PYZus{}x}\PY{p}{,} \PY{n}{test\PYZus{}y}\PY{p}{)}
+            \PY{n}{train\PYZus{}x}\PY{p}{,} \PY{n}{train\PYZus{}y} \PY{o}{=} \PY{n}{shared\PYZus{}dataset}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{,} \PY{n}{train\PYZus{}y}\PY{p}{)}
+        
+            \PY{n}{rval} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{,} \PY{n}{train\PYZus{}y}\PY{p}{)}\PY{p}{,}
+                    \PY{p}{(}\PY{n}{test\PYZus{}x}\PY{p}{,} \PY{n}{test\PYZus{}y}\PY{p}{)}\PY{p}{]}
+            \PY{k}{return} \PY{n}{rval}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k+kn}{import} \PY{n+nn}{numpy}
+        \PY{k+kn}{import} \PY{n+nn}{theano}
+        \PY{k+kn}{import} \PY{n+nn}{theano.tensor} \PY{k+kn}{as} \PY{n+nn}{T}
+        
+        
+        \PY{k}{class} \PY{n+nc}{LogisticRegression}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Output layer with softmax activation\PYZdq{}\PYZdq{}\PYZdq{}}
+        
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{rng}\PY{p}{,} \PY{n+nb}{input}\PY{p}{,} \PY{n}{n\PYZus{}in}\PY{p}{,} \PY{n}{n\PYZus{}out}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{        :param input: symbolic variable that describes the input}
+        \PY{l+s+sd}{         of the architecture (one minibatch)}
+        
+        \PY{l+s+sd}{        :param n\PYZus{}in: number of input units, the dimension of}
+        \PY{l+s+sd}{         the space in which the datapoints lie}
+        
+        \PY{l+s+sd}{        :param n\PYZus{}out: number of output units, the dimension of}
+        \PY{l+s+sd}{         the space in which the labels lie}
+        \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+        
+                \PY{c}{\PYZsh{} zero initialized W}
+                \PY{c}{\PYZsh{} dim(W) = (n\PYZus{}in, n\PYZus{}out)}
+        
+                \PY{n}{W\PYZus{}values} \PY{o}{=} \PY{n}{numpy}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}
+                    \PY{n}{rng}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}
+                        \PY{n}{low}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{n}{numpy}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mf}{1.} \PY{o}{/} \PY{n}{n\PYZus{}in}\PY{p}{)}\PY{p}{,}
+                        \PY{n}{high}\PY{o}{=}\PY{n}{numpy}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mf}{1.} \PY{o}{/} \PY{n}{n\PYZus{}in}\PY{p}{)}\PY{p}{,}
+                        \PY{n}{size}\PY{o}{=}\PY{p}{(}\PY{n}{n\PYZus{}in}\PY{p}{,} \PY{n}{n\PYZus{}out}\PY{p}{)}
+                    \PY{p}{)}\PY{p}{,}
+                    \PY{n}{dtype}\PY{o}{=}\PY{n}{theano}\PY{o}{.}\PY{n}{config}\PY{o}{.}\PY{n}{floatX}
+                \PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{W} \PY{o}{=} \PY{n}{theano}\PY{o}{.}\PY{n}{shared}\PY{p}{(}\PY{n}{value}\PY{o}{=}\PY{n}{W\PYZus{}values}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{W}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{n}{borrow}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+        
+                \PY{c}{\PYZsh{} zero initialized b}
+                \PY{c}{\PYZsh{} dim(b) = (n\PYZus{}out)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{b} \PY{o}{=} \PY{n}{theano}\PY{o}{.}\PY{n}{shared}\PY{p}{(}
+                    \PY{n}{value}\PY{o}{=}\PY{n}{numpy}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}
+                        \PY{p}{(}\PY{n}{n\PYZus{}out}\PY{p}{,}\PY{p}{)}\PY{p}{,}
+                        \PY{n}{dtype}\PY{o}{=}\PY{n}{theano}\PY{o}{.}\PY{n}{config}\PY{o}{.}\PY{n}{floatX}
+                    \PY{p}{)}\PY{p}{,}
+                    \PY{n}{name}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{b}\PY{l+s}{\PYZsq{}}\PY{p}{,}
+                    \PY{n}{borrow}\PY{o}{=}\PY{n+nb+bp}{True}
+                \PY{p}{)}
+        
+                \PY{c}{\PYZsh{} softmax activation function}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{p\PYZus{}y\PYZus{}given\PYZus{}x} \PY{o}{=} \PY{n}{T}\PY{o}{.}\PY{n}{nnet}\PY{o}{.}\PY{n}{softmax}\PY{p}{(}\PY{n}{T}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n+nb}{input}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{W}\PY{p}{)} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{b}\PY{p}{)}
+        
+                \PY{c}{\PYZsh{} predicted function (max softmax)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{T}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{p\PYZus{}y\PYZus{}given\PYZus{}x}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        
+                \PY{c}{\PYZsh{} all the parameters that need to be fitted}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params} \PY{o}{=} \PY{p}{[}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{W}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{b}\PY{p}{]}
+        
+        
+            \PY{k}{def} \PY{n+nf}{negative\PYZus{}log\PYZus{}likelihood}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{        Return the mean of the negative log\PYZhy{}likelihood of the prediction}
+        \PY{l+s+sd}{        of this model under a given target distribution.}
+        
+        \PY{l+s+sd}{        :type y: theano.tensor.TensorType}
+        \PY{l+s+sd}{        :param y: corresponds to a vector that gives for each example the}
+        \PY{l+s+sd}{                  correct label}
+        
+        \PY{l+s+sd}{        Note: we use the mean instead of the sum so that}
+        \PY{l+s+sd}{              the learning rate is less dependent on the batch size}
+        \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                \PY{k}{return} \PY{o}{\PYZhy{}}\PY{n}{T}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{T}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{p\PYZus{}y\PYZus{}given\PYZus{}x}\PY{p}{)}\PY{p}{[}\PY{n}{T}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{y}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{y}\PY{p}{]}\PY{p}{)}
+        
+        
+            \PY{k}{def} \PY{n+nf}{errors}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Return a float representing the number of errors in the minibatch}
+        \PY{l+s+sd}{        over the total number of examples of the minibatch ; zero one}
+        \PY{l+s+sd}{        loss over the size of the minibatch}
+        
+        \PY{l+s+sd}{        :type y: theano.tensor.TensorType}
+        \PY{l+s+sd}{        :param y: corresponds to a vector that gives for each example the}
+        \PY{l+s+sd}{                  correct label}
+        \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+        
+                \PY{c}{\PYZsh{} check if y has same dimension of y\PYZus{}pred}
+                \PY{k}{if} \PY{n}{y}\PY{o}{.}\PY{n}{ndim} \PY{o}{!=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{y\PYZus{}pred}\PY{o}{.}\PY{n}{ndim}\PY{p}{:}
+                    \PY{k}{raise} \PY{n+ne}{TypeError}\PY{p}{(}
+                        \PY{l+s}{\PYZsq{}}\PY{l+s}{y should have the same shape as self.y\PYZus{}pred}\PY{l+s}{\PYZsq{}}\PY{p}{,}
+                        \PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{y}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{.}\PY{n}{type}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{y\PYZus{}pred}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{y\PYZus{}pred}\PY{o}{.}\PY{n}{type}\PY{p}{)}
+                    \PY{p}{)}
+                \PY{c}{\PYZsh{} check if y is of the correct datatype}
+                \PY{k}{if} \PY{n}{y}\PY{o}{.}\PY{n}{dtype}\PY{o}{.}\PY{n}{startswith}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{int}\PY{l+s}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                    \PY{c}{\PYZsh{} the T.neq operator returns a vector of 0s and 1s, where 1}
+                    \PY{c}{\PYZsh{} represents a mistake in prediction}
+                    \PY{k}{return} \PY{n}{T}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{T}\PY{o}{.}\PY{n}{neq}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{y\PYZus{}pred}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{)}
+                \PY{k}{else}\PY{p}{:}
+                    \PY{k}{raise} \PY{n+ne}{NotImplementedError}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}105}]:} \PY{k+kn}{import} \PY{n+nn}{numpy}
+          \PY{k+kn}{import} \PY{n+nn}{theano}
+          \PY{k+kn}{import} \PY{n+nn}{theano.tensor} \PY{k+kn}{as} \PY{n+nn}{T}
+          
+          
+          \PY{k}{class} \PY{n+nc}{HiddenLayer}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{rng}\PY{p}{,} \PY{n+nb}{input}\PY{p}{,} \PY{n}{n\PYZus{}in}\PY{p}{,} \PY{n}{n\PYZus{}out}\PY{p}{,} \PY{n}{W}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{b}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,}
+                           \PY{n}{activation}\PY{o}{=}\PY{n}{T}\PY{o}{.}\PY{n}{tanh}\PY{p}{)}\PY{p}{:}
+                  \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{        \PYZhy{} units are fully\PYZhy{}connected}
+          \PY{l+s+sd}{        \PYZhy{} tanh activation function}
+          \PY{l+s+sd}{        \PYZhy{} weight matrix of shape (n\PYZus{}in,n\PYZus{}out)}
+          \PY{l+s+sd}{        \PYZhy{} bias vector b is of shape (n\PYZus{}out,)}
+          
+          \PY{l+s+sd}{        :param rng: a random number generator used to initialize weights}
+          \PY{l+s+sd}{        :param input: a symbolic tensor of shape (n\PYZus{}examples, n\PYZus{}in)}
+          \PY{l+s+sd}{        :param n\PYZus{}in: dimensionality of input}
+          \PY{l+s+sd}{        :param n\PYZus{}out: number of hidden units}
+          \PY{l+s+sd}{        :param activation: Non linearity to be applied in the hidden layer}
+          \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+          
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{input} \PY{o}{=} \PY{n+nb}{input}
+          
+                  \PY{c}{\PYZsh{} `W` is initialized with uniformely sampled values}
+                  \PY{c}{\PYZsh{} from sqrt(\PYZhy{}6./(n\PYZus{}in+n\PYZus{}hidden)) and sqrt(6./(n\PYZus{}in+n\PYZus{}hidden))}
+                  \PY{c}{\PYZsh{} for tanh activation function}
+                  \PY{c}{\PYZsh{} Y Bengio, X. Glorot,}
+                  \PY{c}{\PYZsh{} Understanding the difficulty of training deep feedforward}
+                  \PY{c}{\PYZsh{} neural networks, AISTATS 2010}
+           
+                  \PY{c}{\PYZsh{} initialize W}
+                  \PY{k}{if} \PY{n}{W} \PY{o+ow}{is} \PY{n+nb+bp}{None}\PY{p}{:}
+                      \PY{n}{W\PYZus{}values} \PY{o}{=} \PY{n}{numpy}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}
+                          \PY{n}{rng}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}
+                              \PY{n}{low}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{n}{numpy}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mf}{1.} \PY{o}{/} \PY{n}{n\PYZus{}in}\PY{p}{)}\PY{p}{,}
+                              \PY{n}{high}\PY{o}{=}\PY{n}{numpy}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mf}{1.} \PY{o}{/} \PY{n}{n\PYZus{}in}\PY{p}{)}\PY{p}{,}
+                              \PY{n}{size}\PY{o}{=}\PY{p}{(}\PY{n}{n\PYZus{}in}\PY{p}{,} \PY{n}{n\PYZus{}out}\PY{p}{)}
+                          \PY{p}{)}\PY{p}{,}
+                          \PY{n}{dtype}\PY{o}{=}\PY{n}{theano}\PY{o}{.}\PY{n}{config}\PY{o}{.}\PY{n}{floatX}
+                      \PY{p}{)}
+          
+                      \PY{n}{W} \PY{o}{=} \PY{n}{theano}\PY{o}{.}\PY{n}{shared}\PY{p}{(}\PY{n}{value}\PY{o}{=}\PY{n}{W\PYZus{}values}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{W}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{n}{borrow}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+          
+                  \PY{c}{\PYZsh{} initialize b}
+                  \PY{k}{if} \PY{n}{b} \PY{o+ow}{is} \PY{n+nb+bp}{None}\PY{p}{:}
+                      \PY{n}{b\PYZus{}values} \PY{o}{=} \PY{n}{numpy}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{n\PYZus{}out}\PY{p}{,}\PY{p}{)}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{theano}\PY{o}{.}\PY{n}{config}\PY{o}{.}\PY{n}{floatX}\PY{p}{)}
+                      \PY{n}{b} \PY{o}{=} \PY{n}{theano}\PY{o}{.}\PY{n}{shared}\PY{p}{(}\PY{n}{value}\PY{o}{=}\PY{n}{b\PYZus{}values}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{b}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{n}{borrow}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+          
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{W} \PY{o}{=} \PY{n}{W}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{b} \PY{o}{=} \PY{n}{b}
+          
+          
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{output} \PY{o}{=} \PY{n}{activation}\PY{p}{(}\PY{n}{T}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n+nb}{input}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{W}\PY{p}{)} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{b}\PY{p}{)}
+          
+                  \PY{c}{\PYZsh{} parameters of the model}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params} \PY{o}{=} \PY{p}{[}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{W}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{b}\PY{p}{]}
+          
+          
+          \PY{k}{class} \PY{n+nc}{MLP}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Multi\PYZhy{}Layer Perceptron Class}
+          
+          \PY{l+s+sd}{    A multilayer perceptron is a feedforward artificial neural network model}
+          \PY{l+s+sd}{    that has one layer or more of hidden units and nonlinear activations.}
+          \PY{l+s+sd}{    Intermediate layers usually have as activation function tanh or the}
+          \PY{l+s+sd}{    sigmoid function (defined here by a ``HiddenLayer`` class)  while the}
+          \PY{l+s+sd}{    top layer is a softamx layer (defined here by a ``LogisticRegression``}
+          \PY{l+s+sd}{    class).}
+          \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+          
+              \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{rng}\PY{p}{,} \PY{n+nb}{input}\PY{p}{,} \PY{n}{n\PYZus{}in}\PY{p}{,} \PY{n}{n\PYZus{}hidden}\PY{p}{,} \PY{n}{n\PYZus{}out}\PY{p}{)}\PY{p}{:}
+                  \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Initialize the parameters for the multilayer perceptron}
+          
+          \PY{l+s+sd}{        :type rng: numpy.random.RandomState}
+          \PY{l+s+sd}{        :param rng: a random number generator used to initialize weights}
+          
+          \PY{l+s+sd}{        :type input: theano.tensor.TensorType}
+          \PY{l+s+sd}{        :param input: symbolic variable that describes the input of the}
+          \PY{l+s+sd}{        architecture (one minibatch)}
+          
+          \PY{l+s+sd}{        :type n\PYZus{}in: int}
+          \PY{l+s+sd}{        :param n\PYZus{}in: number of input units, the dimension of the space in}
+          \PY{l+s+sd}{        which the datapoints lie}
+          
+          \PY{l+s+sd}{        :type n\PYZus{}hidden: int}
+          \PY{l+s+sd}{        :param n\PYZus{}hidden: number of hidden units}
+          
+          \PY{l+s+sd}{        :type n\PYZus{}out: int}
+          \PY{l+s+sd}{        :param n\PYZus{}out: number of output units, the dimension of the space in}
+          \PY{l+s+sd}{        which the labels lie}
+          
+          \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+          
+                  \PY{c}{\PYZsh{} Since we are dealing with a one hidden layer MLP, this will translate}
+                  \PY{c}{\PYZsh{} into a HiddenLayer with a tanh activation function connected to the}
+                  \PY{c}{\PYZsh{} LogisticRegression layer; the activation function can be replaced by}
+                  \PY{c}{\PYZsh{} sigmoid or any other nonlinear function}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{hiddenLayer} \PY{o}{=} \PY{n}{HiddenLayer}\PY{p}{(}
+                      \PY{n}{rng}\PY{o}{=}\PY{n}{rng}\PY{p}{,}
+                      \PY{n+nb}{input}\PY{o}{=}\PY{n+nb}{input}\PY{p}{,}
+                      \PY{n}{n\PYZus{}in}\PY{o}{=}\PY{n}{n\PYZus{}in}\PY{p}{,}
+                      \PY{n}{n\PYZus{}out}\PY{o}{=}\PY{n}{n\PYZus{}hidden}\PY{p}{,}
+                      \PY{n}{activation}\PY{o}{=}\PY{n}{T}\PY{o}{.}\PY{n}{tanh}
+                  \PY{p}{)}
+          
+                  \PY{c}{\PYZsh{} The logistic regression layer gets as input the hidden units}
+                  \PY{c}{\PYZsh{} of the hidden layer}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{logRegressionLayer} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}
+                      \PY{n}{rng}\PY{o}{=}\PY{n}{rng}\PY{p}{,}
+                      \PY{n+nb}{input}\PY{o}{=}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{hiddenLayer}\PY{o}{.}\PY{n}{output}\PY{p}{,}
+                      \PY{n}{n\PYZus{}in}\PY{o}{=}\PY{n}{n\PYZus{}hidden}\PY{p}{,}
+                      \PY{n}{n\PYZus{}out}\PY{o}{=}\PY{n}{n\PYZus{}out}
+                  \PY{p}{)}
+          
+                  \PY{c}{\PYZsh{} L1 norm ; one regularization option is to enforce L1 norm to}
+                  \PY{c}{\PYZsh{} be small}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{L1} \PY{o}{=} \PY{p}{(}
+                      \PY{n+nb}{abs}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{hiddenLayer}\PY{o}{.}\PY{n}{W}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+                      \PY{o}{+} \PY{n+nb}{abs}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{logRegressionLayer}\PY{o}{.}\PY{n}{W}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+                  \PY{p}{)}
+          
+                  \PY{c}{\PYZsh{} square of L2 norm ; one regularization option is to enforce}
+                  \PY{c}{\PYZsh{} square of L2 norm to be small}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{L2\PYZus{}sqr} \PY{o}{=} \PY{p}{(}
+                      \PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{hiddenLayer}\PY{o}{.}\PY{n}{W} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+                      \PY{o}{+} \PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{logRegressionLayer}\PY{o}{.}\PY{n}{W} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+                  \PY{p}{)}
+          
+                  \PY{c}{\PYZsh{} negative log likelihood of the MLP is given by the negative}
+                  \PY{c}{\PYZsh{} log likelihood of the output of the model, computed in the}
+                  \PY{c}{\PYZsh{} logistic regression layer}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{negative\PYZus{}log\PYZus{}likelihood} \PY{o}{=} \PY{p}{(}
+                      \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{logRegressionLayer}\PY{o}{.}\PY{n}{negative\PYZus{}log\PYZus{}likelihood}
+                  \PY{p}{)}
+                  \PY{c}{\PYZsh{} same holds for the function computing the number of errors}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{errors} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{logRegressionLayer}\PY{o}{.}\PY{n}{errors}
+          
+                  \PY{c}{\PYZsh{} the parameters of the model are the parameters of the two layer it is}
+                  \PY{c}{\PYZsh{} made out of}
+                  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{params} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{hiddenLayer}\PY{o}{.}\PY{n}{params} \PY{o}{+} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{logRegressionLayer}\PY{o}{.}\PY{n}{params}
+          
+          
+          \PY{k}{def} \PY{n+nf}{test\PYZus{}mlp}\PY{p}{(}\PY{n}{n\PYZus{}epochs}\PY{p}{,} \PY{n}{n\PYZus{}hidden}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{0.01}\PY{p}{,} \PY{n}{L1\PYZus{}reg}\PY{o}{=}\PY{l+m+mf}{0.00}\PY{p}{,} \PY{n}{L2\PYZus{}reg}\PY{o}{=}\PY{l+m+mf}{0.0001}\PY{p}{,}
+                       \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{debug}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{    Demonstrate stochastic gradient descent optimization for a multilayer}
+          \PY{l+s+sd}{    perceptron}
+          
+          \PY{l+s+sd}{    :param learning\PYZus{}rate: learning rate used (factor for the stochastic}
+          \PY{l+s+sd}{     gradient}
+          
+          \PY{l+s+sd}{    :param L1\PYZus{}reg: L1\PYZhy{}norm\PYZsq{}s weight when added to the cost (see}
+          \PY{l+s+sd}{     regularization)}
+          
+          \PY{l+s+sd}{    :param L2\PYZus{}reg: L2\PYZhy{}norm\PYZsq{}s weight when added to the cost (see}
+          \PY{l+s+sd}{     regularization)}
+          
+          \PY{l+s+sd}{    :param n\PYZus{}epochs: maximal number of epochs to run the optimizer}
+          \PY{l+s+sd}{    }
+          \PY{l+s+sd}{   \PYZdq{}\PYZdq{}\PYZdq{}}
+              \PY{n}{datasets} \PY{o}{=} \PY{n}{load\PYZus{}data}\PY{p}{(}\PY{p}{)}
+          
+              \PY{n}{train\PYZus{}set\PYZus{}x}\PY{p}{,} \PY{n}{train\PYZus{}set\PYZus{}y} \PY{o}{=} \PY{n}{datasets}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+              \PY{n}{test\PYZus{}set\PYZus{}x}\PY{p}{,} \PY{n}{test\PYZus{}set\PYZus{}y} \PY{o}{=} \PY{n}{datasets}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+          
+              \PY{c}{\PYZsh{} compute number of minibatches for training and testing}
+              \PY{n}{n\PYZus{}train\PYZus{}batches} \PY{o}{=} \PY{n}{train\PYZus{}set\PYZus{}x}\PY{o}{.}\PY{n}{get\PYZus{}value}\PY{p}{(}\PY{n}{borrow}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{/} \PY{n}{batch\PYZus{}size}
+              \PY{n}{n\PYZus{}test\PYZus{}batches} \PY{o}{=} \PY{n}{test\PYZus{}set\PYZus{}x}\PY{o}{.}\PY{n}{get\PYZus{}value}\PY{p}{(}\PY{n}{borrow}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{/} \PY{n}{batch\PYZus{}size}
+          
+              \PY{k}{print} \PY{l+s}{\PYZsq{}}\PY{l+s}{... building the model}\PY{l+s}{\PYZsq{}}
+          
+              \PY{c}{\PYZsh{} allocate symbolic variables for the data}
+              \PY{n}{index} \PY{o}{=} \PY{n}{T}\PY{o}{.}\PY{n}{lscalar}\PY{p}{(}\PY{p}{)}  \PY{c}{\PYZsh{} index to a [mini]batch}
+              \PY{n}{x} \PY{o}{=} \PY{n}{T}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{x}\PY{l+s}{\PYZsq{}}\PY{p}{)}  \PY{c}{\PYZsh{} the data is presented as rasterized images}
+              \PY{n}{y} \PY{o}{=} \PY{n}{T}\PY{o}{.}\PY{n}{ivector}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{y}\PY{l+s}{\PYZsq{}}\PY{p}{)}  \PY{c}{\PYZsh{} the labels are presented as 1D vector of int labels}
+          
+              \PY{n}{rng} \PY{o}{=} \PY{n}{numpy}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{RandomState}\PY{p}{(}\PY{l+m+mi}{1234}\PY{p}{)}
+          
+              \PY{c}{\PYZsh{} construct the MLP class}
+              \PY{n}{classifier} \PY{o}{=} \PY{n}{MLP}\PY{p}{(}
+                              \PY{n}{rng}\PY{o}{=}\PY{n}{rng}\PY{p}{,}
+                              \PY{n+nb}{input}\PY{o}{=}\PY{n}{x}\PY{p}{,}
+                              \PY{n}{n\PYZus{}in}\PY{o}{=}\PY{l+m+mi}{28} \PY{o}{*} \PY{l+m+mi}{28}\PY{p}{,}
+                              \PY{n}{n\PYZus{}hidden}\PY{o}{=}\PY{n}{n\PYZus{}hidden}\PY{p}{,}
+                              \PY{n}{n\PYZus{}out}\PY{o}{=}\PY{l+m+mi}{10}
+                              \PY{p}{)}
+          
+              \PY{c}{\PYZsh{} the cost we minimize during training is the negative log likelihood of}
+              \PY{c}{\PYZsh{} the model plus the regularization terms (L1 and L2); cost is expressed}
+              \PY{c}{\PYZsh{} here symbolically}
+              \PY{n}{cost} \PY{o}{=} \PY{p}{(}
+                      \PY{n}{classifier}\PY{o}{.}\PY{n}{negative\PYZus{}log\PYZus{}likelihood}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+                      \PY{o}{+} \PY{n}{L1\PYZus{}reg} \PY{o}{*} \PY{n}{classifier}\PY{o}{.}\PY{n}{L1}
+                      \PY{o}{+} \PY{n}{L2\PYZus{}reg} \PY{o}{*} \PY{n}{classifier}\PY{o}{.}\PY{n}{L2\PYZus{}sqr}
+                      \PY{p}{)}
+          
+              \PY{c}{\PYZsh{} verify the fit of the model on a test set minibatch}
+              \PY{n}{test\PYZus{}model} \PY{o}{=} \PY{n}{theano}\PY{o}{.}\PY{n}{function}\PY{p}{(}
+                  \PY{n}{inputs}\PY{o}{=}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{,}
+                  \PY{n}{outputs}\PY{o}{=}\PY{n}{classifier}\PY{o}{.}\PY{n}{errors}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{,}
+                  \PY{n}{givens}\PY{o}{=}\PY{p}{\PYZob{}}
+                          \PY{n}{x}\PY{p}{:} \PY{n}{test\PYZus{}set\PYZus{}x}\PY{p}{[}\PY{n}{index} \PY{o}{*} \PY{n}{batch\PYZus{}size}\PY{p}{:}\PY{p}{(}\PY{n}{index} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{*} \PY{n}{batch\PYZus{}size}\PY{p}{]}\PY{p}{,}
+                          \PY{n}{y}\PY{p}{:} \PY{n}{test\PYZus{}set\PYZus{}y}\PY{p}{[}\PY{n}{index} \PY{o}{*} \PY{n}{batch\PYZus{}size}\PY{p}{:}\PY{p}{(}\PY{n}{index} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{*} \PY{n}{batch\PYZus{}size}\PY{p}{]}
+                          \PY{p}{\PYZcb{}}
+                      \PY{p}{)}
+          
+              \PY{c}{\PYZsh{} verify the fit of the model on the train set}
+              \PY{n}{check\PYZus{}fit\PYZus{}train\PYZus{}set} \PY{o}{=} \PY{n}{theano}\PY{o}{.}\PY{n}{function}\PY{p}{(}
+                  \PY{n}{inputs}\PY{o}{=}\PY{p}{[}\PY{p}{]}\PY{p}{,}
+                  \PY{n}{outputs}\PY{o}{=}\PY{n}{classifier}\PY{o}{.}\PY{n}{errors}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{,}
+                  \PY{n}{givens}\PY{o}{=}\PY{p}{\PYZob{}}
+                          \PY{n}{x}\PY{p}{:} \PY{n}{train\PYZus{}set\PYZus{}x}\PY{p}{,}
+                          \PY{n}{y}\PY{p}{:} \PY{n}{train\PYZus{}set\PYZus{}y}
+                          \PY{p}{\PYZcb{}}
+                      \PY{p}{)}
+          
+              \PY{c}{\PYZsh{} verify the fit of the model on the test set}
+              \PY{n}{check\PYZus{}fit\PYZus{}test\PYZus{}set} \PY{o}{=} \PY{n}{theano}\PY{o}{.}\PY{n}{function}\PY{p}{(}
+                  \PY{n}{inputs}\PY{o}{=}\PY{p}{[}\PY{p}{]}\PY{p}{,}
+                  \PY{n}{outputs}\PY{o}{=}\PY{n}{classifier}\PY{o}{.}\PY{n}{errors}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{,}
+                  \PY{n}{givens}\PY{o}{=}\PY{p}{\PYZob{}}
+                          \PY{n}{x}\PY{p}{:} \PY{n}{test\PYZus{}set\PYZus{}x}\PY{p}{,}
+                          \PY{n}{y}\PY{p}{:} \PY{n}{test\PYZus{}set\PYZus{}y}
+                          \PY{p}{\PYZcb{}}
+                      \PY{p}{)}
+          
+              \PY{c}{\PYZsh{} compile a Theano function that computes the mistakes that are made}
+              \PY{c}{\PYZsh{} by the model on a minibatch of the train set (we\PYZsq{}ll see overfitting)}
+              \PY{n}{check\PYZus{}fit} \PY{o}{=} \PY{n}{theano}\PY{o}{.}\PY{n}{function}\PY{p}{(}
+              \PY{n}{inputs}\PY{o}{=}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{,}
+              \PY{n}{outputs}\PY{o}{=}\PY{n}{classifier}\PY{o}{.}\PY{n}{errors}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{,}
+              \PY{n}{givens}\PY{o}{=}\PY{p}{\PYZob{}}
+                      \PY{n}{x}\PY{p}{:} \PY{n}{train\PYZus{}set\PYZus{}x}\PY{p}{[}\PY{n}{index} \PY{o}{*} \PY{n}{batch\PYZus{}size}\PY{p}{:}\PY{p}{(}\PY{n}{index} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{*} \PY{n}{batch\PYZus{}size}\PY{p}{]}\PY{p}{,}
+                      \PY{n}{y}\PY{p}{:} \PY{n}{train\PYZus{}set\PYZus{}y}\PY{p}{[}\PY{n}{index} \PY{o}{*} \PY{n}{batch\PYZus{}size}\PY{p}{:}\PY{p}{(}\PY{n}{index} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{*} \PY{n}{batch\PYZus{}size}\PY{p}{]}
+                      \PY{p}{\PYZcb{}}
+                  \PY{p}{)}
+          
+              \PY{c}{\PYZsh{} compute the gradient of cost with respect to theta (sorted in params)}
+              \PY{c}{\PYZsh{} the resulting gradients will be stored in a list gparams}
+              \PY{n}{gparams} \PY{o}{=} \PY{p}{[}\PY{n}{T}\PY{o}{.}\PY{n}{grad}\PY{p}{(}\PY{n}{cost}\PY{p}{,} \PY{n}{param}\PY{p}{)} \PY{k}{for} \PY{n}{param} \PY{o+ow}{in} \PY{n}{classifier}\PY{o}{.}\PY{n}{params}\PY{p}{]}
+              
+              \PY{n}{output\PYZus{}gradients} \PY{o}{=} \PY{n}{theano}\PY{o}{.}\PY{n}{function}\PY{p}{(}
+                  \PY{n}{inputs} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{p}{,}
+                  \PY{n}{outputs} \PY{o}{=} \PY{p}{[}\PY{n}{T}\PY{o}{.}\PY{n}{grad}\PY{p}{(}\PY{n}{cost}\PY{p}{,} \PY{n}{param}\PY{p}{)} \PY{k}{for} \PY{n}{param} \PY{o+ow}{in} \PY{n}{classifier}\PY{o}{.}\PY{n}{params}\PY{p}{]}\PY{p}{,}
+                  \PY{p}{)}
+          
+              \PY{c}{\PYZsh{} specify how to update the parameters of the model as a list of}
+              \PY{c}{\PYZsh{} (variable, update expression) pairs}
+              \PY{n}{updates} \PY{o}{=} \PY{p}{[}
+                  \PY{p}{(}\PY{n}{param}\PY{p}{,} \PY{n}{param} \PY{o}{\PYZhy{}} \PY{n}{learning\PYZus{}rate} \PY{o}{*} \PY{n}{gparam}\PY{p}{)}
+                  \PY{k}{for} \PY{n}{param}\PY{p}{,} \PY{n}{gparam} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{classifier}\PY{o}{.}\PY{n}{params}\PY{p}{,} \PY{n}{gparams}\PY{p}{)}
+              \PY{p}{]}
+          
+              \PY{c}{\PYZsh{} returns the cost, and updates the parameter of the}
+              \PY{c}{\PYZsh{} model based on the rules defined in \PYZsq{}updates\PYZsq{}}
+              \PY{n}{train\PYZus{}model} \PY{o}{=} \PY{n}{theano}\PY{o}{.}\PY{n}{function}\PY{p}{(}
+                  \PY{n}{inputs}\PY{o}{=}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{,}
+                  \PY{n}{outputs}\PY{o}{=}\PY{n}{cost}\PY{p}{,}
+                  \PY{n}{updates}\PY{o}{=}\PY{n}{updates}\PY{p}{,}
+                  \PY{n}{givens}\PY{o}{=}\PY{p}{\PYZob{}}
+                      \PY{n}{x}\PY{p}{:} \PY{n}{train\PYZus{}set\PYZus{}x}\PY{p}{[}\PY{n}{index} \PY{o}{*} \PY{n}{batch\PYZus{}size}\PY{p}{:} \PY{p}{(}\PY{n}{index} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{*} \PY{n}{batch\PYZus{}size}\PY{p}{]}\PY{p}{,}
+                      \PY{n}{y}\PY{p}{:} \PY{n}{train\PYZus{}set\PYZus{}y}\PY{p}{[}\PY{n}{index} \PY{o}{*} \PY{n}{batch\PYZus{}size}\PY{p}{:} \PY{p}{(}\PY{n}{index} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{*} \PY{n}{batch\PYZus{}size}\PY{p}{]}
+                  \PY{p}{\PYZcb{}}
+              \PY{p}{)}
+              
+              \PY{k}{print} \PY{n}{output\PYZus{}gradients}\PY{p}{(}\PY{p}{)}
+          
+              \PY{k}{print} \PY{l+s}{\PYZsq{}}\PY{l+s}{... training}\PY{l+s}{\PYZsq{}}
+          
+              \PY{n}{best\PYZus{}iter} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{n}{test\PYZus{}scores} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{n}{train\PYZus{}scores} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          
+              \PY{n}{epoch} \PY{o}{=} \PY{l+m+mi}{0}
+          
+              \PY{k}{while} \PY{p}{(}\PY{n}{epoch} \PY{o}{\PYZlt{}} \PY{n}{n\PYZus{}epochs}\PY{p}{)}\PY{p}{:}
+          
+                  \PY{n}{epoch} \PY{o}{=} \PY{n}{epoch} \PY{o}{+} \PY{l+m+mi}{1}
+                  \PY{c}{\PYZsh{}if epoch\PYZpc{}5 == 0:}
+                    \PY{c}{\PYZsh{}print \PYZdq{}\PYZob{}0\PYZcb{}; \PYZob{}1\PYZcb{}; \PYZob{}2\PYZcb{}\PYZdq{}.format(epoch, train\PYZus{}scores[\PYZhy{}1], test\PYZus{}scores[\PYZhy{}1])}
+          
+                  \PY{k}{for} \PY{n}{minibatch\PYZus{}index} \PY{o+ow}{in} \PY{n+nb}{xrange}\PY{p}{(}\PY{n}{n\PYZus{}train\PYZus{}batches}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{minibatch\PYZus{}avg\PYZus{}cost} \PY{o}{=} \PY{n}{train\PYZus{}model}\PY{p}{(}\PY{n}{minibatch\PYZus{}index}\PY{p}{)}
+          
+                  \PY{c}{\PYZsh{} verify the fit on the datasets}
+                  \PY{n}{train\PYZus{}scores}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{check\PYZus{}fit\PYZus{}train\PYZus{}set}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                  \PY{n}{test\PYZus{}scores}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{check\PYZus{}fit\PYZus{}test\PYZus{}set}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                      
+          
+              \PY{k}{print} \PY{l+s}{\PYZsq{}}\PY{l+s}{... done}\PY{l+s+se}{\PYZbs{}n}\PY{l+s}{\PYZsq{}}
+              \PY{k}{return} \PY{p}{(}\PY{n}{train\PYZus{}scores}\PY{p}{,} \PY{n}{test\PYZus{}scores}\PY{p}{)}
+              
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}106}]:} \PY{c}{\PYZsh{}print theano.tensor.verify\PYZus{}grad(theano.tensor.tanh, (numpy.asarray([2.,3.,4.]),), rng=numpy.random)}
+          \PY{c}{\PYZsh{}print theano.tensor.verify\PYZus{}grad(cost.)}
+          \PY{n}{test\PYZus{}mlp}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{debug}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\ldots building the model
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+    MissingInputError                         Traceback (most recent call last)
+
+        <ipython-input-106-17201852f387> in <module>()
+          1 \#print theano.tensor.verify\_grad(theano.tensor.tanh, (numpy.asarray([2.,3.,4.]),), rng=numpy.random)
+          2 \#print theano.tensor.verify\_grad(cost.)
+    ----> 3 test\_mlp(10, 10, debug=True)
+    
+
+        <ipython-input-105-22199f8aebae> in test\_mlp(n\_epochs, n\_hidden, learning\_rate, L1\_reg, L2\_reg, batch\_size, debug)
+        241     output\_gradients = theano.function(
+        242         inputs = [],
+    --> 243         outputs = [T.grad(cost, param) for param in classifier.params],
+        244         )
+        245 
+
+
+        /home/gab/Downloads/Theano-Theano-7fb9005/theano/compile/function.pyc in function(inputs, outputs, mode, updates, givens, no\_default\_updates, accept\_inplace, name, rebuild\_strict, allow\_input\_downcast, profile, on\_unused\_input)
+        263                 allow\_input\_downcast=allow\_input\_downcast,
+        264                 on\_unused\_input=on\_unused\_input,
+    --> 265                 profile=profile)
+        266     \# We need to add the flag check\_aliased inputs if we have any mutable or
+        267     \# borrowed used defined inputs
+
+
+        /home/gab/Downloads/Theano-Theano-7fb9005/theano/compile/pfunc.pyc in pfunc(params, outputs, mode, updates, givens, no\_default\_updates, accept\_inplace, name, rebuild\_strict, allow\_input\_downcast, profile, on\_unused\_input)
+        509     return orig\_function(inputs, cloned\_outputs, mode,
+        510             accept\_inplace=accept\_inplace, name=name, profile=profile,
+    --> 511             on\_unused\_input=on\_unused\_input)
+        512 
+        513 
+
+
+        /home/gab/Downloads/Theano-Theano-7fb9005/theano/compile/function\_module.pyc in orig\_function(inputs, outputs, mode, accept\_inplace, name, profile, on\_unused\_input)
+       1537                    accept\_inplace=accept\_inplace,
+       1538                    profile=profile,
+    -> 1539                    on\_unused\_input=on\_unused\_input).create(
+       1540                        defaults)
+       1541 
+
+
+        /home/gab/Downloads/Theano-Theano-7fb9005/theano/compile/function\_module.pyc in \_\_init\_\_(self, inputs, outputs, mode, accept\_inplace, function\_builder, profile, on\_unused\_input, fgraph)
+       1223             need\_opt = True
+       1224             \# make the fgraph (copies the graph, creates NEW INPUT AND OUTPUT VARIABLES)
+    -> 1225             fgraph, additional\_outputs = std\_fgraph(inputs, outputs, accept\_inplace)
+       1226             fgraph.profile = profile
+       1227         else:
+
+
+        /home/gab/Downloads/Theano-Theano-7fb9005/theano/compile/function\_module.pyc in std\_fgraph(input\_specs, output\_specs, accept\_inplace)
+        139     orig\_outputs = [spec.variable for spec in output\_specs] + updates
+        140 
+    --> 141     fgraph = gof.fg.FunctionGraph(orig\_inputs, orig\_outputs)
+        142 
+        143     for node in fgraph.apply\_nodes:
+
+
+        /home/gab/Downloads/Theano-Theano-7fb9005/theano/gof/fg.pyc in \_\_init\_\_(self, inputs, outputs, features, clone)
+        133             self.variables.add(input)
+        134 
+    --> 135         self.\_\_import\_r\_\_(outputs, reason="init")
+        136         for i, output in enumerate(outputs):
+        137             output.clients.append(('output', i))
+
+
+        /home/gab/Downloads/Theano-Theano-7fb9005/theano/gof/fg.pyc in \_\_import\_r\_\_(self, variables, reason)
+        255         for apply\_node in [r.owner for r in variables if r.owner is not None]:
+        256             if apply\_node not in self.apply\_nodes:
+    --> 257                 self.\_\_import\_\_(apply\_node, reason=reason)
+        258         for r in variables:
+        259             if r.owner is None and not isinstance(r, graph.Constant) and r not in self.inputs:
+
+
+        /home/gab/Downloads/Theano-Theano-7fb9005/theano/gof/fg.pyc in \_\_import\_\_(self, apply\_node, check, reason)
+        360                             "for more information on this error."
+        361                             \% str(node)),
+    --> 362                             r)
+        363 
+        364         for node in new\_nodes:
+
+
+        MissingInputError: ("An input of the graph, used to compute Shape(y), was not provided and not given a value.Use the Theano flag exception\_verbosity='high',for more information on this error.", y)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c}{\PYZsh{} let\PYZsq{}s see the influence of the number of hidden neurons on the fit}
+         \PY{n}{result} \PY{o}{=} \PY{p}{[}\PY{n}{test\PYZus{}mlp}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{num\PYZus{}hidden}\PY{p}{)} \PY{k}{for} \PY{n}{num\PYZus{}hidden} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{,}  \PY{l+m+mi}{701}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+n\_hidden = 50
+\ldots building the model
+\ldots training
+\ldots done
+
+n\_hidden = 150
+\ldots building the model
+\ldots training
+\ldots done
+
+n\_hidden = 250
+\ldots building the model
+\ldots training
+\ldots done
+
+n\_hidden = 350
+\ldots building the model
+\ldots training
+\ldots done
+
+n\_hidden = 450
+\ldots building the model
+\ldots training
+\ldots done
+
+n\_hidden = 550
+\ldots building the model
+\ldots training
+\ldots done
+
+n\_hidden = 650
+\ldots building the model
+\ldots training
+\ldots done
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib.pyplot} \PY{k+kn}{as} \PY{n+nn}{plt}
+         
+         \PY{n}{train\PYZus{}scores} \PY{o}{=} \PY{p}{[}\PY{n}{result}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{result}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+         \PY{n}{test\PYZus{}scores} \PY{o}{=}  \PY{p}{[}\PY{n}{result}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{result}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+         
+         \PY{n}{range\PYZus{}tested} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{,}  \PY{l+m+mi}{701}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{train\PYZus{}scores}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{train\PYZus{}scores}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{train set error}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{test\PYZus{}scores}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{test set error}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{epoch}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{error rate}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n+nb+bp}{True}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{Error rates with \PYZob{}0\PYZcb{} hidden neurons}\PY{l+s}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{range\PYZus{}tested}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Homework2_files/Homework2_36_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Homework2_files/Homework2_36_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Homework2_files/Homework2_36_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Homework2_files/Homework2_36_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Homework2_files/Homework2_36_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Homework2_files/Homework2_36_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Homework2_files/Homework2_36_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{c}{\PYZsh{} now let\PYZsq{}s train them to see if the overfitting can be prevented with stronger L2 regularization}
+         \PY{n}{L2\PYZus{}penalty} \PY{o}{=} \PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in}\PY{p}{]}
+         \PY{n}{regularization\PYZus{}result} \PY{o}{=} \PY{p}{[}\PY{n}{test\PYZus{}mlp}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{500}\PY{p}{,} \PY{n}{L2\PYZus{}reg}\PY{o}{=}\PY{n}{reg}\PY{p}{)} \PY{k}{for} \PY{n}{reg} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}  \PY{l+m+mi}{1001}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+n\_hidden = 500
+\ldots building the model
+\ldots training
+\ldots done
+
+n\_hidden = 500
+\ldots building the model
+\ldots training
+\ldots done
+
+n\_hidden = 500
+\ldots building the model
+\ldots training
+\ldots done
+
+n\_hidden = 500
+\ldots building the model
+\ldots training
+\ldots done
+
+n\_hidden = 500
+\ldots building the model
+\ldots training
+\ldots done
+
+n\_hidden = 500
+\ldots building the model
+\ldots training
+\ldots done
+
+n\_hidden = 500
+\ldots building the model
+\ldots training
+\ldots done
+
+n\_hidden = 500
+\ldots building the model
+\ldots training
+\ldots done
+
+n\_hidden = 500
+\ldots building the model
+\ldots training
+\ldots done
+
+n\_hidden = 500
+\ldots building the model
+\ldots training
+\ldots done
+
+n\_hidden = 500
+\ldots building the model
+\ldots training
+\ldots done
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib.pyplot} \PY{k+kn}{as} \PY{n+nn}{plt}
+         
+         \PY{n}{train\PYZus{}scores} \PY{o}{=} \PY{p}{[}\PY{n}{regularization\PYZus{}result}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{result}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+         \PY{n}{test\PYZus{}scores} \PY{o}{=}  \PY{p}{[}\PY{n}{regularization\PYZus{}result}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{result}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+         
+         \PY{n}{range\PYZus{}tested} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}  \PY{l+m+mi}{1001}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{train\PYZus{}scores}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{train\PYZus{}scores}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{train set error}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{test\PYZus{}scores}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{test set error}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{epoch}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{error rate}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n+nb+bp}{True}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{Error rates with \PYZob{}0\PYZcb{} L2 penalty}\PY{l+s}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{range\PYZus{}tested}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Homework2_files/Homework2_38_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Homework2_files/Homework2_38_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Homework2_files/Homework2_38_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Homework2_files/Homework2_38_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Homework2_files/Homework2_38_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Homework2_files/Homework2_38_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Homework2_files/Homework2_38_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}127}]:} \PY{c}{\PYZsh{}T.grad(T.tanh)}
+          \PY{n}{x} \PY{o}{=} \PY{n}{T}\PY{o}{.}\PY{n}{dscalar}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{x}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{y} \PY{o}{=} \PY{n}{x} \PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}
+          \PY{n}{gy} \PY{o}{=} \PY{n}{T}\PY{o}{.}\PY{n}{grad}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{x}\PY{p}{)}
+          \PY{n}{theano}\PY{o}{.}\PY{n}{pp}\PY{p}{(}\PY{n}{gy}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}127}]:} '((fill((x ** TensorConstant\{2\}), TensorConstant\{1.0\}) * TensorConstant\{2\}) * (x ** (TensorConstant\{2\} - TensorConstant\{1\})))'
+\end{Verbatim}
+        
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
