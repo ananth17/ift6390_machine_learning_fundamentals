@@ -2,7 +2,7 @@ import numpy
 import matplotlib.pyplot as plt
 
 
-def heatmap_classification_performance(classification, name):
+def confusion_matrix(classification, name):
     """ """
     data = numpy.empty((0, 10))
     for i in range(0, 10):
