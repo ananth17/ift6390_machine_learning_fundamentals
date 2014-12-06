@@ -22,13 +22,6 @@ Université de Montréal\\
 \texttt{dora.fugere@umontreal.ca} \\
 }
 
-% The \author macro works with any number of authors. There are two commands
-% used to separate the names and addresses of multiple authors: \And and \AND.
-%
-% Using \And between authors leaves it to \LaTeX{} to determine where to break
-% the lines. Using \AND forces a linebreak at that point. So, if \LaTeX{}
-% puts 3 of 4 authors names on the first line, and the last on the second
-% line, try using \AND instead of \And before the third author name.
 
 \newcommand{\fix}{\marginpar{FIX}}
 \newcommand{\new}{\marginpar{NEW}}
@@ -37,88 +30,131 @@ Université de Montréal\\
 
 \begin{document}
 
-
 \maketitle
 
 \begin{abstract}
 % still needs much work
-Recent work on adversarial examples generation from input space in neural network
+Adversarial examples generation from input space in neural network
 has shown that these powerful constructs can be manipulated into misclassifying
 previously well classified examples by adding an imperceptible amount of distortion.
-We wanted to investigate this phenomenon on simpler classifiers
+We wanted to investigate this phenomenon on simpler classifiers.
 \end{abstract}
 
 
 \section{Introduction}
-
-% current state of machine learning
+% current progress with deep neural networks
 Recent developments in machine learning technology have allowed very impressive feats such
-as automatic image description \citep{vinyals_show_2014}, large-scale multi-character
-text recognition in \citep{ian_j_goodfellow_multi-digit_2013} to name but a few.
+as automatic image description \citep{vinyals_show_2014} and large-scale multi-character
+text recognition in \citep{goodfellow_multi-digit_2013} to name but a few.
+These results were achieved with models relying on deep architectures which are very
+popular at the moment given their amazing expressiveness.
+
+From a practical point of view, however these constructs are not perfect. Training
+them is pretty expensive and they possess counter-intuitive 
+
+Older and perhaps less glamorous models are still worth investigation, especially
+given their somewhat surprising performance in many classification tasks
+\citep{hand_classifier_2006}.
 
 % trade-offs in machine learning
-As in most real-world problems, there are multiple coexisting objectives
-that need to be considered when trying to solve such complex tasks.
-
+%We'll restrict ourselves to the classification problem.
+%As in most real-world problems, there are multiple coexisting objectives
+%that need to be considered when trying to solve such complex tasks.
 
 % ML technology matters
-More precisely, from a practical point of view, speed, interpretability and accurracy 
-of generalization can be crucial. A not so funny example of this is the Netflix challenge, for
-which the winning proposal (basically a \$1 Million algorithm) wasn't implemented due to engineering
-cost \citep{johnston_netflix_2012}. That by itself is pretty hilarious.
+More precisely, from a practical point of view, we believe three of them are very important.
+
+% accuracy
+First of all, the \textbf{accuracy of generalization} of a model on a problem is paramount.
+This is pretty much the definition of learning \citep{domingos_few_2012}. If the model
+isn't generalizing (e.g. a bad case of overfitting), then it's pretty much worthless.
+
+% speed
+Second is \textbf{performance}, i.e. how well the algorithm scales to the enormous amount of data
+that is nowadays common (both in training and in prediction). The Netflix challenge recently
+became a cautionary tale for this aspect of machine learning. The original winning algorithm 
+(\$1 Million prize) never being implemented because it wouldn't scale \citep{johnston_netflix_2012}.
+
+% interpretability
+% There is a good reason for preferring simpler models: they are easier for people
+% to understand, remember and use (as well as cheaper for computers to store and
+% manipulate). Thus the first razor is justified. However, simplicity and comprehen-
+% sibility are not always equivalent. For example, a decision table may be larger than
+% a similarly accurate decision tree, but more easily understood because all lines in
+% the table use the same attributes (Langley, 1996; Kohavi & Sommerfield, 1998).
+% Induced models are also more comprehensible if they are consistent with previous
+% knowledge, even if this makes them more complex (Pazzani, 1991; Pazzani et al.,
+% 1997). A better form of the first razor would perhaps state that given two models
+% with the same generalization error, the more comprehensible one should be pre-
+% ferred. What exactly makes a model comprehensible is largely domain-dependent,
+% but also a matter for cognitive and empirical research (e.g., Kononenko, 1990; Paz-
+% zani, 1991; Kohavi & Sommerfield, 1998).
+
+Finally, \textbf{simplicity}, is a goal in itself. We interpet it as: `Given two models with
+the same generalization error, the more comprehensible one should be preferred`
+\citep{domingos_role_1999}.
+
+This obviously is dependent on multiple other factors (as previously stated) but it
+does sound like the \textit{keep it simple stupid} rule of thumb.
+
+Furthermore, as stated in \citep{hand_classifier_2006}, empirical comparison of
+accuracy is dependent on many factors including preprocessing steps (ink normalization
+and deskewing in the MNIST dataset for example) and hyperparameters.
 
 
-% if speed is an issue, so is iterpretability
+% the core question
+This brings us to the recent observation of counter-intuitive properties in
+neural networks \citep{szegedy_intriguing_2013}. The main result was that the
+\textit{smoothness assumption}, the idea that imperceptible distortion of input
+shouldn't change the output doesn't hold. This is a remarkable finding since this
+`obvious` property is really crucial in many methods.
 
-success at one particular
-problem doesn't mean by any mean that 
+Inspired by this result, we applied the same treatment (optimization) to the simplest
+classifier we could think of, a linear support vector machine (SVM). The only other contender
+would have been Naive Bayes, but we happen to like sklearn's implementation of the linear SVM 
+(to risk reinventing the square wheel!).
 
-From a practical point of view, one of the important aspects of the machine learning can
-be said to revolve around the 
+% explain the results here
 
-
-
-As impressive as these developments are, there are still many aspects of the technology
-
-
-
-
-
-
-% the value of a classifier
-Although these projects have had amazing results, many aspects of the underlying technology are up
-to debate.
-
-still
-poorly understood. 
-
-
- Most real-world optimization problems are multi-objective, and this is also the case in the
-development of technology in machine learning. 
-
-
-% intriguing properties
-
-
-
-% justification of using linear classifiers
-
-% jutification of measure (analogy to the 2013 ANN paper)
-One simple example of this is the
-Netflix prize 
-
-
-
-% 
 
 
 
 \section{Framework}
 
 
+\textbf{Dataset}
+
+The experiments were performed on the MNIST dataset \citep{lecun_mnist_1998}.
+
+Let \begin{math} X=\{0, 255\}^{784} \end{math} the set of valid possible 8-bit grayscale digit,
+then $x_i$ \begin{math}  \in X \end{math} is an input image from the dataset.
+
+Let \begin{math} C = \{0, 9\} \end{math} the set of valid classes for an MNIST digit,
+then $c_i$ \begin{math} \in C \end{math} is the class of $x_i$.\newline
 
 
-\section{Distribution of resilience}
+\textbf{Adversarial example generation}
+
+% make bijection to knapsack, dynamic programming...
+let \begin{math} f::X \rightarrow  C \end{math} a classifier mapping each possible instance
+$x_i$ to a corresponding $c_i$.
+
+We implement slightly different optimization procedure than \citep{szegedy_intriguing_2013}.
+
+% define the fuzzing function
+%let \begin{math} g::X \rightarrow   \mid f(x_i\end{math}
+
+
+
+
+%\newline
+
+
+
+\section{Formal description}
+
+
+
 
 
 \section{Submission of papers to NIPS 2014}

@@ -52,4 +52,13 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
+# pickle files
 *.pkl
+
+# pdflatex files
+*.aux
+*.log
+*.out
+*.blg
+*.dvi
+*.bbl
