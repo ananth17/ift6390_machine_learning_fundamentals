@@ -44,4 +44,13 @@ def show_mnist_digit(digit):
     plt.show()
 
 
+def assert_legit_mnist(image):
+    """used to verify that the digit is 8-bit grayscale, between 0 and 1"""
+    low = numpy.min(digit)
+    high = numpy.max(digit)
+    if low < 0. or high > 1.:
+        return False
+    integers = numpy.equal(numpy.mod(256. * image, 1.), 0.)
+    return numpy.sum(integers) == 784.
+
 

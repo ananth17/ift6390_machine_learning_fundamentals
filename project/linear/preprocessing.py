@@ -12,6 +12,7 @@ def ink_normalize(x):
     """ ink normalization for image"""
     return x /numpy.linalg.norm(x)
 
+
 def moments ( image ) :
     """ helper for deskewing image"""
     # taken from
@@ -34,4 +35,18 @@ def deskew(image):
     ocenter = numpy.array(image.shape)/2.0
     offset = c-numpy.dot(affine,ocenter)
     return interpolation.affine_transform(image,affine,offset=offset)
+
+
+def to8bit(image):
+    """return an 8-bit version of the image by centering
+    (between 0 and 1) and round to closest 1/256 fraction"""
+    low  = numpy.min(image)
+    high = numpy.max(image)
+    interval = high - low
+    # perform centering (between 0 and 1)
+    new_image = (image - low) / interval
+    
+    # perform 8bit conversion (only multiples of 1/256)
+    new_8bit_image = numpy.ceil(new_image * 256.)/256.
+    return new_8bit_image
 
