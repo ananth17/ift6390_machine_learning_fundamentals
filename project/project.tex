@@ -4,7 +4,8 @@
 \usepackage{url}
 \usepackage[utf8]{inputenc}
 \usepackage[round]{natbib}
-%\documentstyle[nips14submit_09,times,art10]{article} % For LaTeX 2.09
+\usepackage{amsmath}
+%\documentstyle[nips14submit_09,times,art10]{article} % For LaTeX 2.09         
 
 
 \title{Messing with linear classifiers}
@@ -36,136 +37,190 @@ Université de Montréal\\
 % still needs much work
 Adversarial examples generation from input space in neural network
 has shown that these powerful constructs can be manipulated into misclassifying
-previously well classified examples by adding an imperceptible amount of distortion.
-We wanted to investigate this phenomenon on simpler classifiers.
+previously well classified examples by adding an imperceptible amount of
+distortion. We wanted to investigate this phenomenon on simpler classifiers.
 \end{abstract}
 
 
 \section{Introduction}
-% current progress with deep neural networks
-Recent developments in machine learning technology have allowed very impressive feats such
-as automatic image description \citep{vinyals_show_2014} and large-scale multi-character
-text recognition in \citep{goodfellow_multi-digit_2013} to name but a few.
-These results were achieved with models relying on deep architectures which are very
-popular at the moment given their amazing expressiveness.
-
-From a practical point of view, however these constructs are not perfect. Training
-them is pretty expensive and they possess counter-intuitive 
-
-Older and perhaps less glamorous models are still worth investigation, especially
-given their somewhat surprising performance in many classification tasks
-\citep{hand_classifier_2006}.
-
-% trade-offs in machine learning
-%We'll restrict ourselves to the classification problem.
-%As in most real-world problems, there are multiple coexisting objectives
-%that need to be considered when trying to solve such complex tasks.
-
-% ML technology matters
-More precisely, from a practical point of view, we believe three of them are very important.
-
-% accuracy
-First of all, the \textbf{accuracy of generalization} of a model on a problem is paramount.
-This is pretty much the definition of learning \citep{domingos_few_2012}. If the model
-isn't generalizing (e.g. a bad case of overfitting), then it's pretty much worthless.
-
-% speed
-Second is \textbf{performance}, i.e. how well the algorithm scales to the enormous amount of data
-that is nowadays common (both in training and in prediction). The Netflix challenge recently
-became a cautionary tale for this aspect of machine learning. The original winning algorithm 
-(\$1 Million prize) never being implemented because it wouldn't scale \citep{johnston_netflix_2012}.
-
-% interpretability
-% There is a good reason for preferring simpler models: they are easier for people
-% to understand, remember and use (as well as cheaper for computers to store and
-% manipulate). Thus the first razor is justified. However, simplicity and comprehen-
-% sibility are not always equivalent. For example, a decision table may be larger than
-% a similarly accurate decision tree, but more easily understood because all lines in
-% the table use the same attributes (Langley, 1996; Kohavi & Sommerfield, 1998).
-% Induced models are also more comprehensible if they are consistent with previous
-% knowledge, even if this makes them more complex (Pazzani, 1991; Pazzani et al.,
-% 1997). A better form of the first razor would perhaps state that given two models
-% with the same generalization error, the more comprehensible one should be pre-
-% ferred. What exactly makes a model comprehensible is largely domain-dependent,
-% but also a matter for cognitive and empirical research (e.g., Kononenko, 1990; Paz-
-% zani, 1991; Kohavi & Sommerfield, 1998).
-
-Finally, \textbf{simplicity}, is a goal in itself. We interpet it as: `Given two models with
-the same generalization error, the more comprehensible one should be preferred`
-\citep{domingos_role_1999}.
-
-This obviously is dependent on multiple other factors (as previously stated) but it
-does sound like the \textit{keep it simple stupid} rule of thumb.
-
-Furthermore, as stated in \citep{hand_classifier_2006}, empirical comparison of
-accuracy is dependent on many factors including preprocessing steps (ink normalization
-and deskewing in the MNIST dataset for example) and hyperparameters.
-
 
 % the core question
-This brings us to the recent observation of counter-intuitive properties in
-neural networks \citep{szegedy_intriguing_2013}. The main result was that the
-\textit{smoothness assumption}, the idea that imperceptible distortion of input
-shouldn't change the output doesn't hold. This is a remarkable finding since this
-`obvious` property is really crucial in many methods.
+Recent observation of counter-intuitive properties in
+neural networks have put \citep{szegedy_intriguing_2013}. The main result was
+that the \textit{smoothness assumption}, the idea that imperceptible distortion
+of input shouldn't change the output doesn't hold. This is a remarkable finding
+since this property is really crucial in many methods.
 
-Inspired by this result, we applied the same treatment (optimization) to the simplest
-classifier we could think of, a linear support vector machine (SVM). The only other contender
-would have been Naive Bayes, but we happen to like sklearn's implementation of the linear SVM 
-(to risk reinventing the square wheel!).
+% current progress with deep neural networks
+This constrasts with the recent developments in machine learning technology
+have allowed very impressive feats such as automatic image description
+\citep{vinyals_show_2014} and large-scale multi-character text recognition in
+\citep{goodfellow_multi-digit_2013} to name but a few.
+These results were achieved with models relying on deep architectures which are
+very popular at the moment given their amazing expressiveness.
+From a practical point of view, however these constructs are not perfect.
+Training them is pretty expensive and they are somewhat hard to understand. As
+for most real-world problems, there are multiple objectives to the design of a
+machine learning algorithm amongst which accuracy, complexity, and
+comprehensibility are, we believe, important.
 
-% explain the results here
+% accuracy
+First of all, the \textbf{accuracy of generalization} of a model on a problem
+is paramount. This is pretty much the definition of learning
+\citep{domingos_few_2012}. If the model isn't generalizing (e.g. a bad case of
+overfitting), then it's pretty much worthless.
+% speed
+Second is \textbf{complexity}, i.e. how well the algorithm scales to the
+enormous amount of data that is nowadays common (both in training and in
+prediction). The Netflix challenge recently became a cautionary tale for this
+aspect of machine learning. The original winning algorithm  (\$1 Million prize)
+never being implemented because it wouldn't scale
+\citep{johnston_netflix_2012}.
+% comprehensibility
+Finally, \textbf{comprehensibility}, is a goal in itself. We interpet it as:
+`Given two models with the same generalization error, the more comprehensible
+one should be preferred` \citep{domingos_role_1999}.
+This obviously is dependent on multiple other factors (as previously stated)
+but it does sound like the \textit{keep it simple stupid} rule of thumb.
+Furthermore, as stated in \citep{hand_classifier_2006}, empirical comparison of
+accuracy is dependent on many factors including preprocessing steps (ink
+normalization and deskewing in the MNIST dataset for example) and
+hyperparameters.
+
+So, we justify our use of a simple linear support vector machine (SVM) based
+mostly on its simplicity and comprehensibility, although its accuracy is
+pretty impressive for such a simple system.
 
 
+
+Inspired by this result, we applied the same treatment (optimization) to the
+simplest classifier we could think of, a linear support vector machine. The
+only other contender would have been Naive Bayes, but we happen to like
+sklearn's implementation of the linear SVM (to risk reinventing the square
+wheel!).
 
 
 \section{Framework}
 
 
-\textbf{Dataset}
+\subsection{Dataset}
 
 The experiments were performed on the MNIST dataset \citep{lecun_mnist_1998}.
 
-Let \begin{math} X=\{0, 255\}^{784} \end{math} the set of valid possible 8-bit grayscale digit,
-then $x_i$ \begin{math}  \in X \end{math} is an input image from the dataset.
+Let \begin{math} X=\{0, 255\}^{784} \end{math}, the input domain.
+This is the set of valid possible $28\times28$, 8-bit image.
 
-Let \begin{math} C = \{0, 9\} \end{math} the set of valid classes for an MNIST digit,
-then $c_i$ \begin{math} \in C \end{math} is the class of $x_i$.\newline
-
-
-\textbf{Adversarial example generation}
-
-% make bijection to knapsack, dynamic programming...
-let \begin{math} f::X \rightarrow  C \end{math} a classifier mapping each possible instance
-$x_i$ to a corresponding $c_i$.
-
-We implement slightly different optimization procedure than \citep{szegedy_intriguing_2013}.
-
-% define the fuzzing function
-%let \begin{math} g::X \rightarrow   \mid f(x_i\end{math}
+Let \begin{math} Y = \{0, 9\} \end{math}, the output domain.
+This is the set of valid classes for an MNIST digit.
 
 
+\subsection{Optimization goal}
+
+Let \begin{math} f:X \rightarrow  Y \end{math} a classifier mapping $x_i \in
+X$ to $y_i \in Y$.
+
+We aim to solve the following optimization
+
+\begin{equation}
+\label{eq:optimization}
+\begin{aligned}
+& {\text{minimize}}
+&   \lVert{r} \rVert^2\\
+& \text{subject to} \\
+& & x_i + r \in X \\
+& & f(x_i) \neq f(x_i + r)
+\end{aligned}
+\end{equation}
+
+This is quite similar to \citep{szegedy_intriguing_2013} but the newly
+generated images remain 8-bit to stay in the input domain of the MNIST dataset.
+Sadly, this also makes it a discrete optimization.
 
 
-%\newline
+\subsection{Optimization goal for the linear SVM}
+To allow us to solve this problem in a reasonable time, the classifier used
+here is a linear support vector machine (SVM).
+Suppose we want to misclassy an arbitrary image $x_i$ correctly classified
+as $y_1$ by adding a vector $r$ of distortion in a two-class setting.
+
+The classifier classifies the input based on the following decision function.
+
+\begin{equation}
+\label{eq:decision_function}
+  y_i = argmax (x_i \cdot W^T + b)
+\end{equation}
+
+
+The difference between the class weights of the classifier is $W_diff$.
+
+\begin{equation}
+\label{eq:difference}
+  W_{diff} = W_2 - W_1
+\end{equation}
+
+The distance between the values of the two classes is $d$.
+\begin{equation}
+\label{eq:gap}
+  d = x_i \cdot W_{diff}^T
+\end{equation}
+
+
+To cause misclassification, $r$ must respect the following constraint:
+\begin{equation}
+\label{eq:noise_threshold}
+  r \cdot W_{diff}^T > d
+\end{equation}
+
+What we need is to find the smallest $ \lVert{r} \rVert^2$ that will cause
+misclassification. Note that when there are more than two classes, we just
+apply the procedure to all other classes $y_i \neq y_1$ and choose the one
+with minimal squared euclidean norm.
+
+
+\subsection{Knapsack problem and the greedy approach}
+
+The problem is similar to the bounded multiple-class binary Knapsack problem
+\citep{vanderbeck_extending_2002}, with the difference that we are searching
+for the minimal size of the knapsack holding a value superior to $d$ (equation
+\ref{eq:gap}).
+
+The exact algorithm would be too costly for our purpose so we chose to use a
+greedy heuristic inspired by Dantzig's \citep{dantzig_discrete-variable_1957}.
+
+We encode the cost of adding a bit of distortion to a pixel in the form of a
+weight. For example, given vector of distortion $r$ = [0, 3], the costs of
+adding 1 unit of distortion for each position of $r$ is [1, 7]. For the values,
+we use the absolute value of vector $W_{diff}$. If $W_{diff}$ = [-5, 10], the 
+$\frac {value} {weight}$ ratios would be [5, $\frac{10}{7}$]. The best choice
+to improve the value 
+
+We iteratively choose the elements with the best until
+the critical value is $d$ is passed.
+
+At iteration $n$, the choices made are optimal of the knapsack of size
+$K_n = \sum\limits_{i=1}^n w_i$. This is the case because every object in the
+knapsack was chosen with maximum $\frac{value} {weight}$ ratio and the knapsack
+is filled perfectly.
+
+Let $(K_1, v_1)$ and $(K_2, v_2)$, the size and value of knapsacks at two
+iterations, we know that if $K_1 < K_2$ then $v_1 \leq v_2$, that is to say
+it's a monotonically increasing function. The inverse is also true, if
+$v_1 < v_2$ then $K_1 < K_2$.
+
+For our purpose, this means that the true value of the distance
+$\lVert{r} \rVert^2 \in [K_{n-1}, K_n]$ if the algorithm finishes at iteration
+$n$. This boundary can be very small or very big, depending on the size of the
+weight increments. We measured the boundary size to show that in this problem,
+we have very little incertitude.
 
 
 
-\section{Formal description}
+\section{Experimental results}
+
+\subsection{Interval of $\lVert{r} \rVert^2$}
 
 
-
-
-
-\section{Submission of papers to NIPS 2014}
-
-NIPS requires electronic submissions.  The electronic submission site is  
-\begin{center}
-   \url{http://papers.nips.cc}
-\end{center}
-
-Please read carefully the
-instructions below, and follow them faithfully.
+\subsection{Regularization schemes}
 
 \subsection{Style}
 

@@ -59,7 +59,9 @@ class Index2Gradient(object):
     def get_gradient_cost(self):
         # we put the result in negative to
         # make the min heap a max heap (on the real value)
-        return -(self.abs_gradient /(2.* (self.distortion+1./256.)))
+        low = self.distortion * self.distortion
+        high = (self.distortion+1./256.) * (self.distortion + 1./256.)
+        return -(self.abs_gradient /(high - low))
 
     def can_update(self):
         # checks if still possible to add distortion
@@ -146,7 +148,7 @@ def distort_opt_ratio(digit, original_class, target, classifier, get_image=True)
       return distance
 
 
-def get_distance_adversarial(digit, original_class, classifier):
+def get_squared_norm_adversarial(digit, original_class, classifier):
   smallest = float('inf')
   for i in range(0, 10):
     if i!= original_class:

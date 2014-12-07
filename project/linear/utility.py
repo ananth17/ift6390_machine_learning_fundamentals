@@ -1,3 +1,4 @@
+import math
 import numpy
 import matplotlib.pyplot as plt
 
@@ -52,5 +53,14 @@ def assert_legit_mnist(image):
         return False
     integers = numpy.equal(numpy.mod(256. * image, 1.), 0.)
     return numpy.sum(integers) == 784.
+
+
+def generate_datasets(data, seed):
+    """get data for the 10-fold cross-validation"""
+    # set different seed for different validation set
+    numpy.random.seed(seed)
+    train = {k:v[numpy.random.choice(len(v), int(math.floor(9.*len(v)[0]/10.)), replace=False),:] for k,v in data.items()}
+    test  = {k:v[numpy.random.choice(len(v), int(math.floor(len(v)[0]/10.)), replace=False),:] for k,v in data.items()}
+    return (train, test)
 
 

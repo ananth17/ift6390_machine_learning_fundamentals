@@ -29,6 +29,7 @@ def moments ( image ) :
 
 def deskew(image):
     """deskew image"""
+    image = numpy.reshape(image, (28, 28)) if image.shape != (28, 28) else image
     c,v = moments(image)
     alpha = v[0,1]/v[0,0]
     affine = numpy.array([[1,0],[alpha,1]])
