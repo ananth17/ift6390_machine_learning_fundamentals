@@ -42,7 +42,8 @@ Université de Montréal\\
 Adversarial examples generation from input space in neural network
 has shown that these powerful constructs can be manipulated into misclassifying
 previously well classified examples by adding an imperceptible amount of
-distortion. We wanted to investigate this phenomenon on simpler classifiers.
+distortion. Using this methodology, we investigate the relative robustness of
+simple classifiers.
 \end{abstract}
 
 
@@ -170,6 +171,65 @@ for the smallest knapsack holding a value superior to $d$ (equation
 The exact algorithm would be too costly for our purpose so we chose to use a
 greedy heuristic inspired by Dantzig's \citep{dantzig_discrete-variable_1957}.
 
+
+
+
+
+\section{Experimental results}
+
+
+\subsection{Precision of optimization procedure}
+
+Although the bounds on the optimization procedure could be arbitrary big, it
+is usually small for this problem, because $d$ is usually quite big relative
+to the size of weight increments. This means tight bounds on the possible
+true value of the squared euclidean norm.
+
+%\begin{figure}[h!]
+%\includegraphics[scale=0.5]{experiment1}
+%\caption{\small Experiment 1}
+%\end{figure}
+
+
+\subsection{Regularization schemes}
+
+We wanted to observe the effects of different regularization methods and
+parameters on the smallest squared euclidean norm possible to the ge
+
+\begin{figure}[h!]
+\includegraphics[scale=0.5]{experiment2_l2}
+\caption{\small Improvement of reliability with regularization}
+\end{figure}
+
+\subsection{}
+
+\section{Discussion}
+
+As expected, having bigger weights allows the generation of adversarial examples with less
+squared euclidean norm.
+
+
+\subsubsection*{Acknowledgments}
+We would like to thank caffein.
+
+
+\bibliographystyle{acm}
+
+
+\bibliography{project}
+
+
+%%%%%%%%%% supplemental materials %%%%%%%%%%
+\newpage
+
+
+
+%\begin{center}
+%\textbf{\large Supplemental Materials}
+%\end{center}
+
+\subsection{example of the greedy heuristic}
+
 We encode the cost of adding a bit of distortion to a pixel in the form of a
 volume. For example, given vector of distortion $r$ = [0, 3], the costs of
 adding 1 unit of distortion for each position of $r$ is [1, 7]. For the values,
@@ -190,75 +250,22 @@ iterations, we know that if $K_1 < K_2$ then $v_1 \leq v_2$, that is to say
 it's a monotonically increasing function. The inverse is also true, if
 $v_1 < v_2$ then $K_1 < K_2$.
 
-For our purpose, this means that the true value of the distance
+For our purpose, this means that the true value of the norm
 $\lVert{r} \rVert^2 \in [K_{n-1}, K_n]$ if the algorithm finishes at iteration
 $n$. This boundary can be very small or very big, depending on the size of the
 weight increments. We measured the boundary size to show that in this problem,
 we have very little incertitude.
 
 
+\subsection{regularization methods and minimal squared euclidean norm}
 
-\section{Experimental results}
-
-\subsection{Interval of $\lVert{r} \rVert^2$}
-
-
-\subsection{Regularization schemes}
-
-
-% \begin{figure}  
-% \begin{center}  
-% \includegraphics[height=7in,width=5in,angle=90]{file.eps}  
-% \caption{\small \sl This figure shows results of Nobel prize winning importance.\label{fig:Stupendous}}  
-% \end{center}  
-% \end{figure} 
-
-\begin{figure}
-\includegraphics[scale=0.6]{experiment2_l2}
-\caption{\small Improvement of reliability with regularization}
-\end{figure}
-
-
-\section{Discussion}
-
-
-
-\subsubsection*{Acknowledgments}
-
-Use unnumbered third level headings for the acknowledgments. All
-acknowledgments go at the end of the paper. Do not include 
-acknowledgments in the anonymized submission, only in the 
-final paper.
-
-
-\bibliographystyle{acm}
-
-
-\bibliography{project}
-
-
-
-
-
-
-%%%%%%%%%% Merge with supplemental materials %%%%%%%%%%
-\newpage
-
-
-
-%\begin{center}
-%\textbf{\large Supplemental Materials}
-%\end{center}
-
-
-
-\begin{figure}
+\begin{figure}[h!]
 \includegraphics[scale=0.5]{experiment2_l1}
 \caption{\small Improvement of reliability with regularization}
 \end{figure}
 
 
-\begin{figure}
+\begin{figure}[h!]
 \includegraphics[scale=0.5]{experiment2_el}
 \caption{\small Improvement of reliability with regularization}
 \end{figure}
