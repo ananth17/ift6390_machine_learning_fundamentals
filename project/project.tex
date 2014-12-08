@@ -3,8 +3,12 @@
 \usepackage{hyperref}
 \usepackage{url}
 \usepackage[utf8]{inputenc}
-\usepackage[round]{natbib}
 \usepackage{amsmath}
+\usepackage[numbers,sort&compress]{natbib}
+ \usepackage{graphicx}
+ \usepackage[export]{adjustbox}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg,.eps}
+
 %\documentstyle[nips14submit_09,times,art10]{article} % For LaTeX 2.09         
 
 
@@ -44,60 +48,40 @@ distortion. We wanted to investigate this phenomenon on simpler classifiers.
 
 \section{Introduction}
 
-% the core question
-Recent observation of counter-intuitive properties in
-neural networks have put \citep{szegedy_intriguing_2013}. The main result was
-that the \textit{smoothness assumption}, the idea that imperceptible distortion
-of input shouldn't change the output doesn't hold. This is a remarkable finding
-since this property is really crucial in many methods.
-
-% current progress with deep neural networks
-This constrasts with the recent developments in machine learning technology
-have allowed very impressive feats such as automatic image description
+% new problems vs progress
+Recently, neural networks have been brought under questionning. The smoothness
+assumption, the idea that imperceptible distortion of input shouldn't change
+the output was shown not to hold \citep{szegedy_intriguing_2013}. This is a
+remarkable finding since this is assumed to be a necessary property to the
+learning process.
+This comes in stark constrast with feats such as automatic image description
 \citep{vinyals_show_2014} and large-scale multi-character text recognition in
 \citep{goodfellow_multi-digit_2013} to name but a few.
-These results were achieved with models relying on deep architectures which are
-very popular at the moment given their amazing expressiveness.
-From a practical point of view, however these constructs are not perfect.
-Training them is pretty expensive and they are somewhat hard to understand. As
-for most real-world problems, there are multiple objectives to the design of a
-machine learning algorithm amongst which accuracy, complexity, and
-comprehensibility are, we believe, important.
 
-% accuracy
-First of all, the \textbf{accuracy of generalization} of a model on a problem
-is paramount. This is pretty much the definition of learning
-\citep{domingos_few_2012}. If the model isn't generalizing (e.g. a bad case of
-overfitting), then it's pretty much worthless.
-% speed
-Second is \textbf{complexity}, i.e. how well the algorithm scales to the
-enormous amount of data that is nowadays common (both in training and in
-prediction). The Netflix challenge recently became a cautionary tale for this
-aspect of machine learning. The original winning algorithm  (\$1 Million prize)
-never being implemented because it wouldn't scale
-\citep{johnston_netflix_2012}.
-% comprehensibility
-Finally, \textbf{comprehensibility}, is a goal in itself. We interpet it as:
-`Given two models with the same generalization error, the more comprehensible
-one should be preferred` \citep{domingos_role_1999}.
-This obviously is dependent on multiple other factors (as previously stated)
+% comprehensibility is important
+As for most real-world problems, there are many desirable and often conflicting
+goals. Amongst them speed, accuracy and simplicity are easy to justify.
+We'll focus on comprehensibility, because that justifies our focus on a simpler
+model.
+We interpet simplicity as ``given two models with the same generalization error, the more
+comprehensible one should be preferred" \citep{domingos_role_1999}.
+This obviously is dependent on multiple other factors (e.g. speed and accuracy)
 but it does sound like the \textit{keep it simple stupid} rule of thumb.
 Furthermore, as stated in \citep{hand_classifier_2006}, empirical comparison of
-accuracy is dependent on many factors including preprocessing steps (ink
-normalization and deskewing in the MNIST dataset for example) and
-hyperparameters.
+performance is very context-dependent and can be infludenced by treatments such 
+as the preprocessing steps, training parameters and model hyperparameters.
 
-So, we justify our use of a simple linear support vector machine (SVM) based
-mostly on its simplicity and comprehensibility, although its accuracy is
-pretty impressive for such a simple system.
-
-
-
-Inspired by this result, we applied the same treatment (optimization) to the
-simplest classifier we could think of, a linear support vector machine. The
-only other contender would have been Naive Bayes, but we happen to like
-sklearn's implementation of the linear SVM (to risk reinventing the square
-wheel!).
+% experiments executed
+Inspired by the methodology to induce misclassification, we wondered
+if a similar optimization procedure could be applied to generate adversarial
+examples in a simpler classifier. For this purpose, we used a linear support
+vector machine (SVM). The only other contender would have been Naive Bayes,
+but we happen to like sklearn's implementation of the linear SVM \footnote{we wouldn't
+risk reinventing the square wheel} \citep{pedregosa_scikit-learn:_2011}.
+We report the robustness of our optimization procedure, the results on classifiers
+trained with different loss and regularization parameters and we then feed the 
+generated adversarial examples to a neural network to see if some underlying
+feature of the image was captured.
 
 
 \section{Framework}
@@ -108,7 +92,7 @@ wheel!).
 The experiments were performed on the MNIST dataset \citep{lecun_mnist_1998}.
 
 Let \begin{math} X=\{0, 255\}^{784} \end{math}, the input domain.
-This is the set of valid possible $28\times28$, 8-bit image.
+This is the set of $28\times28$ 8-bit image.
 
 Let \begin{math} Y = \{0, 9\} \end{math}, the output domain.
 This is the set of valid classes for an MNIST digit.
@@ -134,12 +118,11 @@ We aim to solve the following optimization
 
 This is quite similar to \citep{szegedy_intriguing_2013} but the newly
 generated images remain 8-bit to stay in the input domain of the MNIST dataset.
-Sadly, this also makes it a discrete optimization.
+Sadly, this also makes it a discrete optimization problem.
 
 
 \subsection{Optimization goal for the linear SVM}
-To allow us to solve this problem in a reasonable time, the classifier used
-here is a linear support vector machine (SVM).
+
 Suppose we want to misclassy an arbitrary image $x_i$ correctly classified
 as $y_1$ by adding a vector $r$ of distortion in a two-class setting.
 
@@ -181,17 +164,17 @@ with minimal squared euclidean norm.
 
 The problem is similar to the bounded multiple-class binary Knapsack problem
 \citep{vanderbeck_extending_2002}, with the difference that we are searching
-for the minimal size of the knapsack holding a value superior to $d$ (equation
+for the smallest knapsack holding a value superior to $d$ (equation
 \ref{eq:gap}).
 
 The exact algorithm would be too costly for our purpose so we chose to use a
 greedy heuristic inspired by Dantzig's \citep{dantzig_discrete-variable_1957}.
 
 We encode the cost of adding a bit of distortion to a pixel in the form of a
-weight. For example, given vector of distortion $r$ = [0, 3], the costs of
+volume. For example, given vector of distortion $r$ = [0, 3], the costs of
 adding 1 unit of distortion for each position of $r$ is [1, 7]. For the values,
 we use the absolute value of vector $W_{diff}$. If $W_{diff}$ = [-5, 10], the 
-$\frac {value} {weight}$ ratios would be [5, $\frac{10}{7}$]. The best choice
+$\frac {value} {volume}$ ratios would be [5, $\frac{10}{7}$]. The best choice
 to improve the value 
 
 We iteratively choose the elements with the best until
@@ -199,7 +182,7 @@ the critical value is $d$ is passed.
 
 At iteration $n$, the choices made are optimal of the knapsack of size
 $K_n = \sum\limits_{i=1}^n w_i$. This is the case because every object in the
-knapsack was chosen with maximum $\frac{value} {weight}$ ratio and the knapsack
+knapsack was chosen with maximum $\frac{value} {volume}$ ratio and the knapsack
 is filled perfectly.
 
 Let $(K_1, v_1)$ and $(K_2, v_2)$, the size and value of knapsacks at two
@@ -221,6 +204,18 @@ we have very little incertitude.
 
 
 \subsection{Regularization schemes}
+
+
+% \begin{figure}  
+% \begin{center}  
+% \includegraphics[height=7in,width=5in,angle=90]{file.eps}  
+% \caption{\small \sl This figure shows results of Nobel prize winning importance.\label{fig:Stupendous}}  
+% \end{center}  
+% \end{figure} 
+
+\includegraphics[scale=0.6]{experiment2_l2}
+
+
 
 \subsection{Style}
 
@@ -546,27 +541,6 @@ applicable.
 If your file contains Type 3 fonts or non embedded TrueType fonts, we will
 ask you to fix it. 
 
-\subsection{Margins in LaTeX}
- 
-Most of the margin problems come from figures positioned by hand using
-\verb+\special+ or other commands. We suggest using the command
-\verb+\includegraphics+
-from the graphicx package. Always specify the figure width as a multiple of
-the line width as in the example below using .eps graphics
-\begin{verbatim}
-   \usepackage[dvips]{graphicx} ... 
-   \includegraphics[width=0.8\linewidth]{myfile.eps} 
-\end{verbatim}
-or % Apr 2009 addition
-\begin{verbatim}
-   \usepackage[pdftex]{graphicx} ... 
-   \includegraphics[width=0.8\linewidth]{myfile.pdf} 
-\end{verbatim}
-for .pdf graphics. 
-See section 4.4 in the graphics bundle documentation (\url{http://www.ctan.org/tex-archive/macros/latex/required/graphics/grfguide.ps}) 
- 
-A number of width problems arise when LaTeX cannot properly hyphenate a
-line. Please give LaTeX hyphenation hints using the \verb+\-+ command.
 
 
 \subsubsection*{Acknowledgments}
@@ -578,7 +552,7 @@ final paper.
 
 \subsubsection*{References}
 
-\bibliographystyle{plainnat}
+\bibliographystyle{acm}
 
 \bibliography{project}
 

@@ -52,8 +52,9 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
-# pickle files
+# data files
 *.pkl
+*.mat
 
 # pdflatex files
 *.aux
@@ -62,3 +63,6 @@ docs/_build/
 *.blg
 *.dvi
 *.bbl
+
+# new images generated
+*.eps

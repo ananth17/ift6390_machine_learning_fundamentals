@@ -60,7 +60,7 @@ class Index2Gradient(object):
         # we put the result in negative to
         # make the min heap a max heap (on the real value)
         low = self.distortion * self.distortion
-        high = (self.distortion+1./256.) * (self.distortion + 1./256.)
+        high = (self.distortion + 1./256.) * (self.distortion + 1./256.)
         return -(self.abs_gradient /(high - low))
 
     def can_update(self):
@@ -120,7 +120,8 @@ def distort_opt_ratio(digit, original_class, target, classifier, get_image=True)
     heap = [Index2Gradient(i, difference[i], digit[i]) for i in range(0, len(difference))]
     heapq.heapify(heap)
     curr_iter = 0
-    #print "threshold to attain " + str(threshold)
+    best = None
+    assert(threshold > 0.), "the digit is already misclassified"
     while (current_score < threshold):
         best = heapq.heappop(heap)
         curr_iter += 1
@@ -130,6 +131,7 @@ def distort_opt_ratio(digit, original_class, target, classifier, get_image=True)
         else:
             current_score += best.add_distortion()
             heapq.heappush(heap, best)
+            
 
     if get_image:
       for i in full:
@@ -140,19 +142,21 @@ def distort_opt_ratio(digit, original_class, target, classifier, get_image=True)
       #print "attained threshold " + str(current_score)
       return ret
     else:
-      distance = 0.
+      distance_high = 0.
       for i in heap:
-          distance += i.distortion * i.distortion
+          distance_high += i.distortion * i.distortion
       for i in full:
-          distance += i.distortion * i.distortion
-      return distance
+          distance_high += i.distortion * i.distortion
+      d = best.distortion
+      distance_low = distance_high - ((d*d) -((d-1./256.) * (d-1./256.)))
+      return (distance_low, distance_high)
 
 
 def get_squared_norm_adversarial(digit, original_class, classifier):
-  smallest = float('inf')
+  smallest = (0, float('inf'))
   for i in range(0, 10):
     if i!= original_class:
       dist = distort_opt_ratio(digit, original_class, i, classifier, get_image=False)
-      if smallest > dist:
+      if smallest[1] > dist[1]:
         smallest=dist
   return smallest

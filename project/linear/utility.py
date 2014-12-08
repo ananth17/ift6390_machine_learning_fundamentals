@@ -37,9 +37,9 @@ def show_mnist_digit(digit):
     low = numpy.min(digit)
     high = numpy.min(digit)
     if high < 1.:
-        high = 1
+        high = 1.
     if low > 0.:
-        low = 0
+        low = 0.
     plt.imshow(numpy.reshape(digit,(28,28)), cmap=plt.cm.gray, interpolation='none', vmin=low, vmax=high)
     plt.colorbar()
     plt.show()
@@ -54,13 +54,5 @@ def assert_legit_mnist(image):
     integers = numpy.equal(numpy.mod(256. * image, 1.), 0.)
     return numpy.sum(integers) == 784.
 
-
-def generate_datasets(data, seed):
-    """get data for the 10-fold cross-validation"""
-    # set different seed for different validation set
-    numpy.random.seed(seed)
-    train = {k:v[numpy.random.choice(len(v), int(math.floor(9.*len(v)[0]/10.)), replace=False),:] for k,v in data.items()}
-    test  = {k:v[numpy.random.choice(len(v), int(math.floor(len(v)[0]/10.)), replace=False),:] for k,v in data.items()}
-    return (train, test)
 
 
