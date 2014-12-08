@@ -53,18 +53,18 @@ simple classifiers.
 Recently, neural networks have been brought under questionning. The smoothness
 assumption, the idea that imperceptible distortion of input shouldn't change
 the output was shown not to hold \citep{szegedy_intriguing_2013}. This is a
-remarkable finding since this is assumed to be a necessary property to the
+remarkable finding since smoothness was assumed to be a necessary property of the
 learning process.
 This comes in stark constrast with feats such as automatic image description
-\citep{vinyals_show_2014} and large-scale multi-character text recognition in
+\citep{vinyals_show_2014} and large-scale multi-character text recognition
 \citep{goodfellow_multi-digit_2013} to name but a few.
 
 % comprehensibility is important
 As for most real-world problems, there are many desirable and often conflicting
-goals. Amongst them speed, accuracy and simplicity are easy to justify.
-We'll focus on comprehensibility, because that justifies our focus on a simpler
-model.
-We interpet simplicity as ``given two models with the same generalization error, the more
+goals when using machine learning. Amongst them speed, accuracy and simplicity
+are easy to justify. We'll focus on comprehensibility, because that justifies
+us using a simpler model.
+We interpret simplicity as ``given two models with the same generalization error, the more
 comprehensible one should be preferred" \citep{domingos_role_1999}.
 This obviously is dependent on multiple other factors (e.g. speed and accuracy)
 but it does sound like the \textit{keep it simple stupid} rule of thumb.
