@@ -12,7 +12,8 @@
 %\documentstyle[nips14submit_09,times,art10]{article} % For LaTeX 2.09         
 
 
-\title{Messing with linear classifiers}
+\title{Fool me once, shame on - shame on you. \newline
+       Fool me - can't get fooled again.}
 
 
 \author{
@@ -85,6 +86,9 @@ generated adversarial examples to a neural network to see if some underlying
 feature of the image was captured.
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%  FRAMEWORK %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Framework}
 
 
@@ -97,6 +101,12 @@ This is the set of $28\times28$ 8-bit image.
 
 Let \begin{math} Y = \{0, 9\} \end{math}, the output domain.
 This is the set of valid classes for an MNIST digit.
+
+
+\subsection{Preprocessing}
+
+The MNIST dataset was deskewed and brought back to 8-bit data. This allowed
+improvement performance for the linear SVM.
 
 
 \subsection{Optimization goal}
@@ -173,10 +183,14 @@ greedy heuristic inspired by Dantzig's \citep{dantzig_discrete-variable_1957}.
 
 
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%  EXPERIMENTAL RESULTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Experimental results}
 
+
+
+%==============================================================================
 
 \subsection{Precision of optimization procedure}
 
@@ -185,23 +199,33 @@ is usually small for this problem, because $d$ is usually quite big relative
 to the size of weight increments. This means tight bounds on the possible
 true value of the squared euclidean norm.
 
-%\begin{figure}[h!]
-%\includegraphics[scale=0.5]{experiment1}
-%\caption{\small Experiment 1}
-%\end{figure}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=0.6]{experiment1}
+\caption{\small Size of the interval on the true value of the minimal squared norm for various
+                classifier on the MNIST dataset. The bound is shown to be very tight.}
+\end{center}
+\end{figure}
 
+
+
+%==============================================================================
 
 \subsection{Regularization schemes}
 
 We wanted to observe the effects of different regularization methods and
-parameters on the smallest squared euclidean norm possible to the ge
+parameters on the generation of adversarial examples. To do so, we started with
+a pilot run, to assess the potential of the various methods.
 
-\begin{figure}[h!]
-\includegraphics[scale=0.5]{experiment2_l2}
-\caption{\small Improvement of reliability with regularization}
-\end{figure}
 
-\subsection{}
+% \begin{figure}[h!]
+% \includegraphics[scale=0.5]{experiment2_l2}
+% \caption{\small Improvement of reliability with regularization}
+% \end{figure}
+
+
+%==============================================================================
+
 
 \section{Discussion}
 
@@ -259,16 +283,17 @@ we have very little incertitude.
 
 \subsection{regularization methods and minimal squared euclidean norm}
 
-\begin{figure}[h!]
-\includegraphics[scale=0.5]{experiment2_l1}
-\caption{\small Improvement of reliability with regularization}
-\end{figure}
-
-
-\begin{figure}[h!]
-\includegraphics[scale=0.5]{experiment2_el}
-\caption{\small Improvement of reliability with regularization}
-\end{figure}
+% \begin{figure}[h!]
+% \label{ex2_l1}
+% \includegraphics[scale=0.5]{experiment2_l1}
+% \caption{\small Improvement of reliability with regularization}
+% \end{figure}
+% 
+% 
+% \begin{figure}[h!]
+% \includegraphics[scale=0.5]{experiment2_el}
+% \caption{\small Improvement of reliability with regularization}
+% \end{figure}
 
 
 
