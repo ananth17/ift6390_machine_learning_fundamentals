@@ -149,7 +149,10 @@ def distort_opt_ratio(digit, original_class, target, classifier, get_image=True)
           distance_high += i.distortion * i.distortion
       d = best.distortion
       distance_low = distance_high - ((d*d) -((d-1./256.) * (d-1./256.)))
-      return (distance_low, distance_high)
+      #return (distance_low, distance_high)
+      return(distance_high)
+
+
 
 
 def get_squared_norm_adversarial(digit, original_class, classifier):
@@ -160,3 +163,56 @@ def get_squared_norm_adversarial(digit, original_class, classifier):
       if smallest[1] > dist[1]:
         smallest=dist
   return smallest
+
+
+
+def get_dist_fast(digit, original_class, classifier):
+    # better efficiency by not returning an image
+    
+    scores = classifier.decision_function(digit)[0]
+    coefficients = classifier.coef_
+    smallest = float('inf')
+    for i in range(0, 10):
+        if i!=original_class:
+            distance = distort(digit, original_class, i, coefficients, scores)
+            if smallest > distance:
+                smallest = distance
+    return smallest
+    
+
+
+def distort(digit, original_class, target, coefs, scores):
+    """greedy optimization"""
+    quantum = 1./256.
+    
+    difference = coefs[target] - coefs[original_class]
+    abs_difference = numpy.abs(difference)
+    sgn = numpy.sign(difference)
+    boundaries = numpy.array(map(lambda (x,y): x if y==-1 else 1-x, zip(digit, sgn)))
+    
+    # get the initial scores to know the value to go over
+    threshold = scores[original_class] - scores[target]
+    
+    current_score = 0.
+    distance = 0.
+
+    threshold = scores[original_class] - scores[target]
+    
+    heap = [Index2Gradient(i, difference[i], digit[i]) for i in range(0, len(difference))]
+    heapq.heapify(heap)
+    assert(threshold > 0.), "the digit is already misclassified"
+    while (current_score < threshold):
+        best = heapq.heappop(heap)
+        
+        if not best.can_update():
+            # add the distance to total (value won't be updated)
+            distance += best.distortion * best.distortion
+            
+        else:
+            current_score += best.add_distortion()
+            heapq.heappush(heap, best)
+            
+    for elem in heap:
+        distance += elem.distortion * elem.distortion
+    return distance
+

@@ -56,13 +56,14 @@ docs/_build/
 *.pkl
 *.mat
 
-# pdflatex files
+# latex files
 *.aux
 *.log
 *.out
 *.blg
 *.dvi
 *.bbl
+*synctex.gz
 
 # new images generated
 *.eps
