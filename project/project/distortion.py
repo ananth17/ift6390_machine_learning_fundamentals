@@ -149,8 +149,8 @@ def distort_opt_ratio(digit, original_class, target, classifier, get_image=True)
           distance_high += i.distortion * i.distortion
       d = best.distortion
       distance_low = distance_high - ((d*d) -((d-1./256.) * (d-1./256.)))
-      #return (distance_low, distance_high)
-      return(distance_high)
+      return (distance_low, distance_high)
+      #return(distance_high)
 
 
 

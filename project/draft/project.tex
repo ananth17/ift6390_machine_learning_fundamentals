@@ -7,13 +7,11 @@
 \usepackage[numbers,sort]{natbib}
 \usepackage{graphicx}
 \usepackage[export]{adjustbox}
+\usepackage{footmisc}
 \DeclareGraphicsExtensions{.pdf,.png,.jpg,.eps}
 
 %\documentstyle[nips14submit_09,times,art10]{article} % For LaTeX 2.09         
 
-
-\title{Fool me once, shame on - shame on you. \newline
-       Fool me - can't get fooled again.}
 
 
 \author{
@@ -36,14 +34,19 @@ Université de Montréal\\
 
 \begin{document}
 
+
+\title{Fool me once, shame on - shame on you. \newline
+       Fool me - can't get fooled again.}
+      
 \maketitle
 
 \begin{abstract}
 % still needs much work
 Adversarial examples generation from input space in neural network
-has shown that these powerful constructs can be manipulated into misclassifying
-previously well classified examples by adding an imperceptible amount of
-distortion. Using this methodology, we investigate the relative robustness of
+has shown that these powerful constructs can be manipulated into misclassifying previously well classified examples by adding an imperceptible
+amount of distortion.
+
+Using this methodology, we investigate the relative robustness of
 simple classifiers.
 \end{abstract}
 
@@ -76,8 +79,7 @@ as the preprocessing steps, training parameters and model hyperparameters.
 % experiments executed
 Inspired by the methodology to induce misclassification, we wondered
 if a similar optimization procedure could be applied to generate adversarial
-examples in a simpler classifier. For this purpose, we used a linear support
-vector machine (SVM). The only other contender would have been Naive Bayes,
+examples in a simpler classifier. For this purpose, we used a support vector machine (SVM) with hinge loss and $L_1$, $L_2$ and $elasticnet$-regularization. The only other contender would have been Naive Bayes,
 but we happen to like sklearn's implementation of the linear SVM \footnote{we wouldn't
 risk reinventing the square wheel} \citep{pedregosa_scikit-learn:_2011}.
 We report the robustness of our optimization procedure, the results on classifiers
@@ -170,6 +172,15 @@ misclassification. Note that when there are more than two classes, we just
 apply the procedure to all other classes $y_i \neq y_1$ and choose the one
 with minimal squared euclidean norm.
 
+To simplify our analysis, we will refer to the distorted set of images generated
+by our optimization procedure as
+\begin{equation}
+	\label{robustness}
+	distorted = \{min(\{\lVert{r_{y_2}} \rVert^2 \mid y_2 \neq y_i\})\ \forall i\}
+\end{equation}
+where $y_i$ is the true and predicted class of the $i$th image and $\lVert{r_{y_2}} \rVert^2$ the
+smallest squared euclidean norm needed for the classifier to classify it as $y_2$.
+
 
 \subsection{Knapsack problem and the greedy approach}
 
@@ -181,6 +192,7 @@ for the smallest knapsack holding a value superior to $d$ (equation
 The exact algorithm would be too costly for our purpose so we chose to use a
 greedy heuristic inspired by Dantzig's \citep{dantzig_discrete-variable_1957}.
 
+The procedure is described in section \ref{greedy:proof}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -201,29 +213,34 @@ true value of the squared euclidean norm.
 
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[scale=0.6]{experiment1}
+\includegraphics[scale=0.65]{figs/experiment_1}
+\label{res:exp1}
 \caption{\small Size of the interval on the true value of the minimal squared norm for various
-                classifier on the MNIST dataset. The bound is shown to be very tight.}
+                classifier on the MNIST dataset. The bound is shown to be very tight, especially considering the usual size of $d$.}
 \end{center}
 \end{figure}
 
-
+Since the bound on the true optimal value is very always very tight, the use of
+the greedy optimization procedure is reasonable.
 
 %==============================================================================
 
 \subsection{Regularization schemes}
 
-We wanted to observe the effects of different regularization methods and
-parameters on the generation of adversarial examples. To do so, we started with
-a pilot run, to assess the potential of the various methods.
+We wanted to observe the effects of different regularization methods and parameters on the examples. To do so, we started with
+a pilot run, to assess the potential of the various configurations.
 
+The most promising regularization penalty was the $L_2$-norm (ridge
+regression) penalty and its results are shown here. 
+The complete results can be viewed in figure \ref{exp:sup_2} of the supplementary material.
 
-% \begin{figure}[h!]
-% \includegraphics[scale=0.5]{experiment2_l2}
-% \caption{\small Improvement of reliability with regularization}
-% \end{figure}
+\begin{figure}[h!]
+ \includegraphics[scale=0.5]{figs/experiment_2_l2}
+ \label{res:exp2}
+ \caption{\small Improvement of robustness with regularization for the $L_2$-regularized SVM with hinge loss. The improvement in squared euclidean norm is very apparent as the value of $\alpha$ goes up.}
+\end{figure}
 
-
+Alternative
 %==============================================================================
 
 
@@ -247,55 +264,94 @@ We would like to thank caffein.
 \newpage
 
 
+\begin{center}
+\textbf{\large Supplementary Materials}
+\end{center}
 
-%\begin{center}
-%\textbf{\large Supplemental Materials}
-%\end{center}
+\subsection{greedy optimization heuristic, the nitty–gritty details}
+\label{greedy:proof}
 
-\subsection{example of the greedy heuristic}
+Let $S = (o_1 , ..., o_n)$ be objects sorted in decreasing unit-value order i.e. value($o_i$)/volume($o_i$) $\geq$  value($o_{i+1}$)/volume($o_{i+1}$).
 
-We encode the cost of adding a bit of distortion to a pixel in the form of a
-volume. For example, given vector of distortion $r$ = [0, 3], the costs of
-adding 1 unit of distortion for each position of $r$ is [1, 7]. For the values,
-we use the absolute value of vector $W_{diff}$. If $W_{diff}$ = [-5, 10], the 
-$\frac {value} {volume}$ ratios would be [5, $\frac{10}{7}$]. The best choice
-to improve the value 
-
-We iteratively choose the elements with the best until
-the critical value is $d$ is passed.
-
-At iteration $n$, the choices made are optimal of the knapsack of size
-$K_n = \sum\limits_{i=1}^n w_i$. This is the case because every object in the
-knapsack was chosen with maximum $\frac{value} {volume}$ ratio and the knapsack
-is filled perfectly.
-
-Let $(K_1, v_1)$ and $(K_2, v_2)$, the size and value of knapsacks at two
-iterations, we know that if $K_1 < K_2$ then $v_1 \leq v_2$, that is to say
-it's a monotonically increasing function. The inverse is also true, if
-$v_1 < v_2$ then $K_1 < K_2$.
-
-For our purpose, this means that the true value of the norm
-$\lVert{r} \rVert^2 \in [K_{n-1}, K_n]$ if the algorithm finishes at iteration
-$n$. This boundary can be very small or very big, depending on the size of the
-weight increments. We measured the boundary size to show that in this problem,
-we have very little incertitude.
+If $K$ is a choice of the first $k$ items of $S$ and $V=volume(K)$, then a knapsack of size $V$ would be optimal for the objects of $S$. This is intuitive since no other choice would have a better value/cost ratio. This is the crux of the matter for our optimization procedure.
 
 
-\subsection{regularization methods and minimal squared euclidean norm}
+Let $(K_1, V_1)$ and $(K_2, V_2)$, the volumes and values of two optimal knapsacks. We know that if $K_1 < K_2$ then $V_1 \leq V_2$, for we could choose the elements of $K_1$ to get an equal value or find better. This also means that given $V_1 < V_3 < V_2$ then $K_1 < K_3 < K_2$. This allows us to find bounds on $K_3$ if we know $(K_1, V_1)$ and $(K_2, V_2)$, as it must be squeezed between the two.
 
-% \begin{figure}[h!]
-% \label{ex2_l1}
-% \includegraphics[scale=0.5]{experiment2_l1}
-% \caption{\small Improvement of reliability with regularization}
-% \end{figure}
-% 
-% 
-% \begin{figure}[h!]
-% \includegraphics[scale=0.5]{experiment2_el}
-% \caption{\small Improvement of reliability with regularization}
-% \end{figure}
+%It is possible to encode the cost of adding a bit of distortion to a pixel in the form of a volume and the gradient of improvement (eq. \ref{eq:difference}) can be encoded as the volume. This
+%is acceptable because each time distortion is added, we add a new object to $S$ and its value/volume is guaranteed to be lower than the latest optimal (we have squared euclidean norm) so it would not have been chosen before.
+%
+%For example, given vector of distortion $r$ = [0, 3], the costs of
+%adding 1 unit of distortion for each position of $r$ is [1, 7]. For the values,
+%we use the absolute value of vector $W_{diff}$. If $W_{diff}$ = [-5, 10], the 
+%$\frac {value} {volume}$ ratios would be [5, $\frac{10}{7}$]. The best choice
+%to improve the value 
+%
+%We iteratively choose the elements with the best until
+%the critical value is $d$ is passed.
+%
+%At iteration $n$, the choices made are optimal of the knapsack of size
+%$K_n = \sum\limits_{i=1}^n w_i$. This is the case because every object in the
+%knapsack was chosen with maximum $\frac{value} {volume}$ ratio and the knapsack
+%is filled perfectly.
+%
+%
+%
+%For our purpose, this means that the true value of the norm
+%$\lVert{r} \rVert^2 \in [K_{n-1}, K_n]$ if the algorithm finishes at iteration
+%$n$. This boundary can be very small or very big, depending on the size of the
+%weight increments. We measured the boundary size to show that in this problem,
+%we have very little incertitude.
+
+\newpage
+\subsection{regularization methods and robustness}
+
+\begin{figure}[h!]
+
+\begin{center}
+\includegraphics[scale=0.5]{figs/sup_1}
+\label{exp:sup_2}
+\end{center}
+\caption{\small Less successful classifiers. Squared euclidian norm is relatively small in comparison to $L_2$ penalty. We see improvement as the coefficient of the penalty grows bigger.}
+\end{figure}
 
 
+\null
+\vfill
+\newpage
+
+
+\subsection{comparison of robustness of two classifiers}
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=0.6]{figs/sup_2}
+\label{exp:sup_2_bigger}
+\caption{\small Comparison of the distribution of the squared norm for distorted images. The last same two classifiers as in figure \ref{res:exp2} were compared.
+The classifier with bigger $\alpha$ is yielding bigger squared euclidean norm.
+This is equivalent to saying it is more robust.}
+\end{center}
+\end{figure}
+
+\null
+\vfill
+\raggedbottom
+\pagebreak
+\newpage
+
+\subsection{example of transitions}
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=0.6]{figs/sup_3}
+\label{exp:sup_2_bigger}
+\caption{\small Classes of the adversarial examples generated.
+For each original class, 1000 images were chosen (rows sum to 1000). We can see quite a strong bias to some classes, especially
+for class 1 and 9.}
+\end{center}
+\end{figure}
+
+\clearpage
 
 \end{document}
 

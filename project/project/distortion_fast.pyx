@@ -147,3 +147,46 @@ cpdef get_distance_and_class(digit, original_class, classifier):
                 smallest = distance
     return smallest
     
+
+cpdef distances_and_class(np.ndarray X, np.ndarray Y, classifier, int num_per_class, int seed):
+    # make this replicable
+    np.random.seed(seed)
+    np.ndarray indices = np.arange(0, len(Y))
+    np.random.shuffle(indices)
+    
+    cdef np.ndarray num_done = np.zeros(10, dtype='i')
+    cdef int index = 0
+    cdef int num_total = num_per_class * 10
+    
+    cdef np.ndarray destinations = np.zeros((10, 10), dtype='i')
+    cdef np.ndarray distances =  np.zeros((10, num_per_class))
+    
+    cdef int scramble_index, original_class, predicted_class, destination
+    cdef np.ndarray digit
+    cdef double distance
+    
+
+    while np.sum(num_done) < num_total:
+        # figure out the original class
+        scramble_index = indices[index]
+        original_class = Y[scramble_index]
+        digit = X[scramble_index]
+        # check if need more of the specific class
+        if num_done[original_class] < num_per_class:
+            # we will check if the class matches
+            predicted_class = classifier.predict(digit)
+            
+            if predicted_class == original_class:
+                # we'll add the observation
+                
+                destination, distance = get_distance_and_class(digit, original_class, classifier)
+                
+                distances[predicted_class][num_done[predicted_class]] = distance
+                destinations[original_class][destination] += 1
+                
+                # update the count
+                num_done[original_class] += 1
+        index += 1
+    return(destinations, distances)
+    
+
