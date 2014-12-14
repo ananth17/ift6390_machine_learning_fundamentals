@@ -146,25 +146,26 @@ cpdef get_distance_and_class(digit, original_class, classifier):
             if smallest[1] > distance[1]:
                 smallest = distance
     return smallest
-    
+
 
 cpdef distances_and_class(np.ndarray X, np.ndarray Y, classifier, int num_per_class, int seed):
     # make this replicable
     np.random.seed(seed)
-    np.ndarray indices = np.arange(0, len(Y))
+    cdef np.ndarray indices = np.arange(0, len(Y))
     np.random.shuffle(indices)
     
     cdef np.ndarray num_done = np.zeros(10, dtype='i')
     cdef int index = 0
     cdef int num_total = num_per_class * 10
     
+    # the fields returned will be
+    # (mnist data index; adversarial class; squared norm)
+    cdef result = np.zeros((10, num_per_class), dtype=[("index", int), ("adv_class", int), ("squared_norm", float)])
     cdef np.ndarray destinations = np.zeros((10, 10), dtype='i')
-    cdef np.ndarray distances =  np.zeros((10, num_per_class))
     
     cdef int scramble_index, original_class, predicted_class, destination
     cdef np.ndarray digit
     cdef double distance
-    
 
     while np.sum(num_done) < num_total:
         # figure out the original class
@@ -178,15 +179,10 @@ cpdef distances_and_class(np.ndarray X, np.ndarray Y, classifier, int num_per_cl
             
             if predicted_class == original_class:
                 # we'll add the observation
-                
-                destination, distance = get_distance_and_class(digit, original_class, classifier)
-                
-                distances[predicted_class][num_done[predicted_class]] = distance
+                destination, squared_norm = get_distance_and_class(digit, original_class, classifier)
+                result[predicted_class][num_done[predicted_class]] = (scramble_index, destination, squared_norm)
                 destinations[original_class][destination] += 1
-                
                 # update the count
                 num_done[original_class] += 1
         index += 1
-    return(destinations, distances)
-    
-
+    return result
