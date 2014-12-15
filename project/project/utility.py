@@ -1,35 +1,16 @@
 import math
 import numpy
 import matplotlib.pyplot as plt
+import seaborn
 
-
-def confusion_matrix(classification, name):
+def confusion_matrix(data):
     """ """
-    data = numpy.empty((0, 10))
-    for i in range(0, 10):
-        row = numpy.zeros(10)
-        for j in range(0, 10):
-            row[j] = classification[i][j]
-        row /= float(numpy.sum(row))
-        data = numpy.vstack((data, row))
-    plt.figure(figsize = (10, 10))
-    plt.title(name)
-    plt.ylabel("image class")
+    f = plt.figure(figsize=(10, 8))
+    seaborn.heatmap(data, annot=True, cmap='Blues')
     plt.xlabel("predicted class")
-    plt.xticks(range(0,10))
-    plt.yticks(range(0,10))
-    plt.imshow(data, cmap=plt.cm.summer_r, interpolation='none')
-    plt.colorbar()
+    plt.ylabel("true class")
     plt.show()
-    class_accuracy = []
-    for i in range(0, 10):
-        class_accuracy.append(data[i][i])
-    plt.figure(figsize = (9, 7))
-    plt.bar(range(0,10), class_accuracy)
-    plt.title('accuracy per class')
-    plt.xticks(range(0,10))
-    plt.show()
-    return data
+    return f
 
 
 def show_mnist_digit(digit):
