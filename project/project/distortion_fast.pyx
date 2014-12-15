@@ -186,3 +186,44 @@ cpdef distances_and_class(np.ndarray X, np.ndarray Y, classifier, int num_per_cl
                 num_done[original_class] += 1
         index += 1
     return result
+    
+    
+cpdef distances_and_class_common(np.ndarray X, np.ndarray Y, classifier1, classifier2, int num_per_class, int seed):
+    # make this replicable
+    np.random.seed(seed)
+    cdef np.ndarray indices = np.arange(0, len(Y))
+    np.random.shuffle(indices)
+    
+    cdef np.ndarray num_done = np.zeros(10, dtype='i')
+    cdef int index = 0
+    cdef int num_total = num_per_class * 10
+    
+    # the fields returned will be
+    # (mnist data index; adversarial class; squared norm)
+    cdef result = np.zeros((10, num_per_class), dtype=[("index", int), ("adv_class", int), ("squared_norm", float)])
+    cdef np.ndarray destinations = np.zeros((10, 10), dtype='i')
+    
+    cdef int scramble_index, original_class, predicted_class1, predicted_class2, destination
+    cdef np.ndarray digit
+    cdef double distance
+
+    while np.sum(num_done) < num_total:
+        # figure out the original class
+        scramble_index = indices[index]
+        original_class = Y[scramble_index]
+        digit = X[scramble_index]
+        # check if need more of the specific class
+        if num_done[original_class] < num_per_class:
+            # we will check if the class matches
+            predicted_class1 = classifier1.predict(digit)
+            predicted_class2 = classifier2.predict(digit)
+            
+            if predicted_class1 == predicted_class2 == original_class:
+                # we'll add the observation
+                destination, squared_norm = get_distance_and_class(digit, original_class, classifier1)
+                result[predicted_class1][num_done[predicted_class1]] = (scramble_index, destination, squared_norm)
+                destinations[original_class][destination] += 1
+                # update the count
+                num_done[original_class] += 1
+        index += 1
+    return result
