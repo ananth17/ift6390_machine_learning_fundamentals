@@ -327,7 +327,7 @@ Let $(K_1, V_1)$ and $(K_2, V_2)$, the volumes and values of two optimal knapsac
 \begin{figure}[h!]
 \begin{center}
 \includegraphics[scale=0.6]{figs/sup_2}
-\label{exp:sup_2_bigger}
+\label{exp:sup_2}
 \caption{\small Comparison of the distribution of the squared norm for distorted images. The last same two classifiers as in figure \ref{res:exp2} were compared.
 The classifier with bigger $\alpha$ is yielding bigger squared euclidean norm.
 This is equivalent to saying it is more robust.}
@@ -345,7 +345,7 @@ This is equivalent to saying it is more robust.}
 \begin{figure}[h!]
 \begin{center}
 \includegraphics[scale=0.6]{figs/sup_3}
-\label{exp:sup_2_bigger}
+\label{exp:sup_3}
 \caption{\small Classes of the adversarial examples generated.
 For each original class, 1000 images were chosen (rows sum to 1000). We can see quite a strong bias to some classes, especially
 for class 1 and 9.}
@@ -373,14 +373,13 @@ easier to generate adversarial examples from.}
 \newpage
 
 
-\subsection{example of input images}
+\subsection{example of input and adversarial images}
 
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[scale=0.5]{figs/sup_5}
+\includegraphics[scale=0.37]{figs/sup_5}
 \label{exp:sup_5}
-\caption{\small For each class, images with various squared
-euclidean distance to adversarial example are shown in order. The digits are going from small to big from left to right.}
+\caption{\small For each digit class, adversarial examples were generated. On each row, the 0, 50 and 100th percentiles of squared euclidean norms were chosen. The images are going from small to big from left to right. As can be observed, the smallest distortion is imperceptible but on the other hand, the median (50th percentile) is generally subtle. This is a good sign, meaning that the classifier is pretty robust.}
 \end{center}
 \end{figure}
 
