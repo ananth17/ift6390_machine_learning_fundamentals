@@ -46,15 +46,15 @@ Adversarial examples generation from input space in neural network
 has shown that these powerful constructs can be manipulated into misclassifying previously well classified examples by adding an imperceptible
 amount of distortion.
 
-Using this methodology, we investigate the relative robustness of
-simple classifiers.
+Using this methodology, we investigate the relative robustness to distortion of a simple linear SVM with
+hinge loss and some regularization schemes.
 \end{abstract}
 
 
 \section{Introduction}
 
 % new problems vs progress
-Recently, neural networks have been brought under questionning. The smoothness
+Recently, neural networks have been brought under questioning. The smoothness
 assumption, the idea that imperceptible distortion of input shouldn't change
 the output was shown not to hold \citep{szegedy_intriguing_2013}. This is a
 remarkable finding since smoothness was assumed to be a necessary property of the
@@ -99,7 +99,7 @@ feature of the image was captured.
 The experiments were performed on the MNIST dataset \citep{lecun_mnist_1998}.
 
 Let \begin{math} X=\{0, 255\}^{784} \end{math}, the input domain.
-This is the set of $28\times28$ 8-bit image.
+This is the set of $28\times28$ 8-bit grayscale image.
 
 Let \begin{math} Y = \{0, 9\} \end{math}, the output domain.
 This is the set of valid classes for an MNIST digit.
@@ -192,7 +192,7 @@ for the smallest knapsack holding a value superior to $d$ (equation
 The exact algorithm would be too costly for our purpose so we chose to use a
 greedy heuristic inspired by Dantzig's \citep{dantzig_discrete-variable_1957}.
 
-The procedure is described in section \ref{greedy:proof}.
+The procedure is described in more details in section \ref{greedy:proof}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -246,8 +246,22 @@ The complete results can be viewed in figure \ref{exp:sup_2} of the supplementar
 
 \section{Discussion}
 
-As expected, having bigger weights allows the generation of adversarial examples with less
-squared euclidean norm.
+As expected, higher regularization penalty yields better robustness to distortion. This comes with the cost of decreasing generalization accuracy when the strength is too high. This got the $L^1$-regularized classifiers to fail early, as their accuracy decreased below the fixed threshold we chose (85\% of generalization accuracy) very quickly, without much impact on robustness. This is show in figure \ref{exp:sup_2}.
+
+From the observations in figure \ref{res:exp2}, we chose the $L^2$-regularized classifier with regularization term 0.5 for further experiments because it had the highest robustness to distortion.
+
+We went on to explore a few aspects of the distortion. The first interesting property for our classifier was the non-uniformity of distribution of adversarial examples as shown in figure \ref{exp_sup3}. It is quite interesting to see the relation between original and closest class by distortion.
+
+It is furthermore interesting to observe that some input classes are more robust (especially the ones, but it makes sense since the MNIST dataset was preprocessed to straighten them). The distribution of squared euclidean norms for adversarial examples is presented in figure \ref{exp:sup_4}.
+To further the point, selected examples of digits and
+their adversarial class counterpart we selected and are
+shown in figure \ref{exp:sup_5}. The smallest, median and largest required distortions were selected to give an idea of the range of distortion and the visual impact it has on the input images when using the optimization procedure. It must be remembered that the distortion can consist of adding or removing intensity by 1 bit increments and the resulting adversarial
+examples are valid 8-bit grayscale images.
+
+Some additional work was done on cross-training-set generalization between two classifiers ($L^2$-regularized, $\alpha=0.5$, same as before). The 60000 MNIST dataset was split in two disjoint sets, as in \citep{szegedy_intriguing_2013}.
+%The results are shown in figure \ref{exp:sup_6}
+
+
 
 
 \subsubsection*{Acknowledgments}
@@ -328,8 +342,7 @@ Let $(K_1, V_1)$ and $(K_2, V_2)$, the volumes and values of two optimal knapsac
 \includegraphics[scale=0.6]{figs/sup_2}
 \label{exp:sup_2}
 \caption{\small Comparison of the distribution of the squared norm for distorted images. The last same two classifiers as in figure \ref{res:exp2} were compared.
-The classifier with bigger $\alpha$ is yielding bigger squared euclidean norm.
-This is equivalent to saying it is more robust.}
+The classifier with bigger $\alpha$ is yielding bigger squared euclidean norm (the angle of the density allows us to tell). This means that the classifier is more robust to distortion.}
 \end{center}
 \end{figure}
 
