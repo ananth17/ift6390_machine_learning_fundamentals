@@ -87,9 +87,7 @@ examples in a simpler classifier. For this purpose, we used a support vector mac
 but we happen to like sklearn's implementation of the linear SVM \footnote{we wouldn't
 risk reinventing the square wheel} \citep{pedregosa_scikit-learn:_2011}.
 We report the robustness of our optimization procedure, the results on classifiers
-trained with different loss and regularization parameters and we then feed the 
-generated adversarial examples to a neural network to see if some underlying
-feature of the image was captured.
+trained with different loss and regularization parameters and some results on cross-training generalization (as in \citep{szegedy_intriguing_2013}).
 
 
 \section{Framework}
@@ -132,7 +130,7 @@ This is quite similar to \citep{szegedy_intriguing_2013} but the newly
 generated images remain 8-bit to stay in the input domain of the MNIST dataset.
 Sadly, this also makes it a discrete optimization problem.
 
-We will sometimes refer to $\lVert{r} \rVert$, the square euclidean norm as the distance. It must be stated that it is not a metric, as it does not satisfy the triangle inequality.
+We will sometimes refer to $\lVert{r} \rVert^2$, the square euclidean norm as the distance. It must be stated that it is not a metric, as it does not satisfy the triangle inequality.
 
 
 \subsection{Optimization goal for the linear SVM}
